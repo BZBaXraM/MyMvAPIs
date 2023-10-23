@@ -12,9 +12,7 @@ public class EditorController : Controller
     private readonly IAsyncEditorService _service;
 
     public EditorController(IAsyncEditorService service)
-    {
-        _service = service;
-    }
+        => _service = service;
 
     public async Task<IActionResult> Index()
     {
