@@ -1,0 +1,36 @@
+@model IEnumerable<MovieViewModel>
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "_Layout";
+}
+
+<form>
+    <div class="container pt-5">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        @if (!string.IsNullOrEmpty(item.Poster))
+                        {
+                            <img src="@item.Poster" class="card-img-top" alt="@item.Title Poster">
+                        }
+                        <div class="card-body">
+                            <h3 class="card-title text-success">@item.Title</h3>
+                            <p class="card-text">
+                                <strong>Year:</strong> @item.Year<br>
+                                <strong>Genre:</strong> @item.Genre<br>
+                                <strong>Director:</strong> @item.Director
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="SearchMovies" class="back-link">Back to search menu</a>
+    </div>
+</form>
