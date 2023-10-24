@@ -39,4 +39,22 @@
             }
         </div>
     </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item @(ViewBag.CurrentPage <= 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", "Movie", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })">Previous</a>
+            </li>
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", "Movie", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
+                </li>
+            }
+            <li class="page-item @(ViewBag.CurrentPage >= ViewBag.TotalPages ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", "Movie", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })">Next</a>
+            </li>
+        </ul>
+    </nav>
+
 </form>
