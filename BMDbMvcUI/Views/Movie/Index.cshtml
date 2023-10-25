@@ -1,5 +1,5 @@
 @using BMDbMvcUI.Data.Roles
-@model IEnumerable<MovieViewModel>
+@model PaginationViewModel<MovieViewModel>
 
 @{
     ViewBag.Title = "Movies";
@@ -9,7 +9,7 @@
 <form>
     <div class="container pt-5">
         <div class="row">
-            @foreach (var item in Model)
+            @foreach (var item in Model.Items)
             {
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
@@ -43,4 +43,13 @@
             }
         </div>
     </div>
+    @if (Model.HasPreviousPage)
+    {
+        <a asp-action="Index" asp-route-page="@(Model.Page - 1)" class="btn btn-outline-primary">Previous</a>
+    }
+    @if (Model.HasNextPage)
+    {
+        <a asp-action="Index" asp-route-page="@(Model.Page + 1)" class="btn btn-outline-primary">Next</a>
+    }
+
 </form>
