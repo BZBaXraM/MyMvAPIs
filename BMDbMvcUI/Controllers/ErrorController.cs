@@ -5,12 +5,14 @@
 //
 // public class ErrorController : Controller
 // {
-//     [Route("Error/{statusCode:int}")]
-//     public IActionResult HttpStatusCodeHandler(int statusCode)
+//     [Route("NotFound")]
+//     public async Task<IActionResult> MovieNotFound()
 //     {
-//         var errorModel = new ErrorViewModel();
+//         MovieViewModel model = new()
+//         {
+//             Title = "Movie not found",
+//         };
 //
-//
-//         return View("Error", errorModel);
+//         return await Task.FromResult<IActionResult>(View("MovieNotFound", model));
 //     }
 // }

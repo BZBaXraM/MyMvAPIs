@@ -12,7 +12,7 @@ public class PaginationViewModel<TModel>
         Items = items;
         Page = page;
         PageSize = pageSize;
-        TotalPages = Convert.ToInt32(Math.Ceiling((double)count / pageSize));
+        TotalPages = Convert.ToInt32(Math.Ceiling((float)count / pageSize));
     }
 
     public bool HasPreviousPage => Page > 1;

@@ -20,12 +20,17 @@ public class MovieService : IAsyncMovieService
         return _movies;
     }
 
-    public async Task<List<MovieViewModel>> SearchMoviesAsync(string search)
+    public async Task<List<MovieViewModel>> SearchMoviesAsync(string? search)
     {
         var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync($"https://localhost:7212/api/Movie/title/{Uri.EscapeDataString(search)}");
-        response.EnsureSuccessStatusCode();
-        _movies.AddRange((await response.Content.ReadFromJsonAsync<IEnumerable<MovieViewModel>>())!);
+        if (search is not null)
+        {
+            var response =
+                await client.GetAsync($"https://localhost:7212/api/Movie/title/{Uri.EscapeDataString(search)}");
+            response.EnsureSuccessStatusCode();
+            _movies.AddRange((await response.Content.ReadFromJsonAsync<IEnumerable<MovieViewModel>>())!);
+        }
+
 
         return _movies;
     }

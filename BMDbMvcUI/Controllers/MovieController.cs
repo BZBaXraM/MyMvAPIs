@@ -30,15 +30,14 @@ public class MovieController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> SearchMoviesAsync(string search)
+    public async Task<IActionResult> SearchMoviesAsync(string? search)
     {
         var movies = await _service.SearchMoviesAsync(search);
         var count = movies.Count;
         var data = movies.ToList();
 
-        var viewModel = new PaginationViewModel<MovieViewModel>(data, 1, count, count);
+        var viewModel = new PaginationViewModel<MovieViewModel>(data, 1, 100, count);
 
         return View("Index", viewModel);
-        // return await Task.FromResult<IActionResult>(View("Index", await _service.SearchMoviesAsync(search)));
     }
 }
