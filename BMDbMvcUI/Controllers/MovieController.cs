@@ -8,8 +8,8 @@ public class MovieController : Controller
 {
     private readonly IAsyncMovieService _service;
 
-    public MovieController(IAsyncMovieService asyncMovieService)
-        => _service = asyncMovieService;
+    public MovieController(IAsyncMovieService service)
+        => _service = service;
 
     [HttpGet]
     public async Task<IActionResult> Index(int page = 1, int pageSize = 10)

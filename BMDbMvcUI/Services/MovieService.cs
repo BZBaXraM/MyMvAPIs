@@ -31,7 +31,6 @@ public class MovieService : IAsyncMovieService
             _movies.AddRange((await response.Content.ReadFromJsonAsync<IEnumerable<MovieViewModel>>())!);
         }
 
-
         return _movies;
     }
 }
