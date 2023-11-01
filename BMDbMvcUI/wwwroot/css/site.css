@@ -174,3 +174,16 @@ h3.card-title {
     box-shadow: 0 15px 15px rgba(19, 138, 92, 0.8);
 
 }
+
+#welcome-h1 {
+    font-size: 50px;
+    color: #B4C5E4;
+    text-align: center;
+}
+
+#message-h2 {
+    font-size: 30px;
+    color: #B4C5E4;
+    text-align: center;
+    margin-top: 50px;
+}

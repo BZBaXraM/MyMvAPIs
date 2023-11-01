@@ -72,4 +72,12 @@ public class EditorService : IAsyncEditorService
 
         return response!;
     }
+
+    public async Task<List<MovieViewModel>> GetMoviesAsync()
+    {
+        var client = _client.CreateClient();
+        var response = await client.GetFromJsonAsync<List<MovieViewModel>>("https://localhost:7212/api/movie");
+
+        return response!;
+    }
 }

@@ -12,7 +12,9 @@ public class EditorController : Controller
     private readonly IAsyncEditorService _service;
 
     public EditorController(IAsyncEditorService service)
-        => _service = service;
+    {
+        _service = service;
+    }
 
     public async Task<IActionResult> Index()
     {
@@ -55,5 +57,17 @@ public class EditorController : Controller
         await _service.DeleteMovieByIdAsync(movieViewModel);
 
         return RedirectToAction("Index", "Movie");
+    }
+
+    public async Task<IActionResult> MovieDatabase(int page = 1, int pageSize = 10)
+    {
+        var movies = await _service.GetMoviesAsync();
+        var count = movies.Count;
+        var data = movies.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+        var viewModel = new PaginationViewModel<MovieViewModel>(data, page, pageSize, count);
+
+
+        return View(viewModel);
     }
 }
