@@ -24,7 +24,6 @@ builder.Services.AddScoped<IAsyncMovieService, MovieService>();
 builder.Services.AddScoped<IAsyncEditorService, EditorService>();
 
 Log.Logger = new LoggerConfiguration()
-    //.MinimumLevel.Information()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
     .Enrich.WithProcessName()
     .Enrich.WithThreadId()
@@ -37,10 +36,9 @@ Log.Logger = new LoggerConfiguration()
                                      "ProcessName: {ProcessName}" +
                                      "{Exception}" +
                                      "{NewLine}")
-    //.WriteTo.File("log.txt",
-    //            rollingInterval: RollingInterval.Day,
-    //            rollOnFileSizeLimit: true)
+    
     .CreateLogger();
+
 
 builder.Host.UseSerilog();
 

@@ -73,7 +73,6 @@ public static class Di
 
         services.AddScoped<IAsyncMovieService, MovieService>();
         services.AddScoped<ITokenService, TokenService>();
-        // services.AddScoped<IAsyncImageService, LocalImageService>();
         services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblyContaining<RegisterRequestValidator>();
