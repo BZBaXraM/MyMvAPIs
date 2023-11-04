@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMDbMvcUI", "BMDbMvcUI\BMDb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMDb.UnitTests", "BMDb.UnitTests\BMDb.UnitTests.csproj", "{055738B1-1D18-4588-81FD-DD2D94722D9F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BMDb.BlazorApp", "BMDb.BlazorApp", "{7AD6AB20-F420-436D-92B2-28C920F8CAE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMDb.BlazorApp", "BMDb.BlazorApp\BMDb.BlazorApp.csproj", "{A279E674-0062-4174-9313-9DAB2064CAFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +35,10 @@ Global
 		{055738B1-1D18-4588-81FD-DD2D94722D9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{055738B1-1D18-4588-81FD-DD2D94722D9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{055738B1-1D18-4588-81FD-DD2D94722D9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A279E674-0062-4174-9313-9DAB2064CAFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A279E674-0062-4174-9313-9DAB2064CAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A279E674-0062-4174-9313-9DAB2064CAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A279E674-0062-4174-9313-9DAB2064CAFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,5 +49,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{130486DB-972C-48B7-B49F-53C4DDFDE901} = {12A87D91-DF1F-4E2B-A7C1-4E0E0E2EA8D7}
 		{132FADD1-DDC5-4ACE-87A5-714F308A8FD7} = {D3E1A967-CB30-4FC0-8E72-EA7AD3C436ED}
+		{A279E674-0062-4174-9313-9DAB2064CAFC} = {7AD6AB20-F420-436D-92B2-28C920F8CAE3}
 	EndGlobalSection
 EndGlobal
