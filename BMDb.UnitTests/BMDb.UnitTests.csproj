@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BMDbAPI\BMDbAPI.csproj" />
+      <ProjectReference Include="..\BMDb.API\BMDb.API.csproj" />
     </ItemGroup>
 
 </Project>

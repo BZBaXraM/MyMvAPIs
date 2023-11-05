@@ -1,9 +1,49 @@
 ﻿@page "/"
+@using BMDb.BlazorApp.Models
+@using BMDb.BlazorApp.Services
+@inject IAsyncMovieService MovieService
 
-<PageTitle>Index</PageTitle>
+<PageTitle>BMDb</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>BMDb</h1>
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?"/>
+@if (_movies == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in _movies)
+        {
+            <div class="col-md-3 mb-2">
+                @if (!string.IsNullOrEmpty(item.Title))
+                {
+                    <img src="@item.Poster" class="card-img-top" alt="@item.Title Poster">
+                }
+
+                <div class="card-body">
+                    <h5>
+                        @item.Title
+                    </h5>
+                    <p class="card-text">
+                        <b>@item.Year</b>
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<MovieModel>? _movies;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _movies = await MovieService.GetMoviesAsync();
+    }
+
+}

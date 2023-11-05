@@ -20,7 +20,6 @@ else
         @foreach (var item in _movies)
         {
             <div class="col-md-3 mb-2">
-                @* <a href="@($"movie/{item.Id}")"></a> *@
                 @if (!string.IsNullOrEmpty(item.Title))
                 {
                     <img src="@item.Poster" class="card-img-top" alt="@item.Title Poster">
@@ -37,13 +36,16 @@ else
             </div>
         }
     </div>
+
+    <Pagination TotalItems="100" PageSize="10"/>
 }
 
 @code {
-    private List<Movie>? _movies;
+    private List<MovieModel>? _movies;
 
     protected override async Task OnInitializedAsync()
     {
+        await Task.Delay(2000);
         _movies = await MovieService.GetMoviesAsync();
     }
 

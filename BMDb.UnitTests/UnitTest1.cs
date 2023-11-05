@@ -1,7 +1,7 @@
-using BMDbAPI.Data;
-using BMDbAPI.DTOs;
-using BMDbAPI.Models;
-using BMDbAPI.Services;
+using BMDb.API.Data;
+using BMDb.API.DTOs;
+using BMDb.API.Models;
+using BMDb.API.Services;
 using Microsoft.EntityFrameworkCore;
 using EntityFrameworkCoreMock;
 
