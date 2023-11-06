@@ -1,0 +1,26 @@
+@page "/search"
+@using BMDb.BlazorApp.Services
+@inject IAsyncMovieService MovieService
+@inject NavigationManager NavigationManager
+
+<h3>Search</h3>
+
+<form method="get" class="search-form" @onsubmit="SearchAsync">
+    <input class="form-control" type="search" name="searchTerm" @bind="_searchTerm"/>
+    <button type="submit">Search</button>
+</form>
+
+@code {
+    private string? _searchTerm;
+
+    private async Task SearchAsync()
+    {
+        await MovieSearchAsync();
+    }
+
+    private async Task MovieSearchAsync()
+    {
+        await MovieService.SearchMoviesAsync(_searchTerm);
+        NavigationManager.NavigateTo($"/searchresult/{_searchTerm}");
+    }
+}
