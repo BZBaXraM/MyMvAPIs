@@ -1,8 +1,8 @@
-using BMDbMvcUI.Models;
-using BMDbMvcUI.Services;
+using BMDb.MVC.Models;
+using BMDb.MVC.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BMDbMvcUI.Controllers;
+namespace BMDb.MVC.Controllers;
 
 public class MovieController : Controller
 {

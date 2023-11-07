@@ -1,6 +1,6 @@
-using BMDbMvcUI.Models;
+using BMDb.MVC.Models;
 
-namespace BMDbMvcUI.Services;
+namespace BMDb.MVC.Services;
 
 public interface IAsyncEditorService
 {

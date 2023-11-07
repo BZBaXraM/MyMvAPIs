@@ -1,13 +1,13 @@
-namespace BMDb.MVC.Models;
+namespace BMDb.BlazorApp.Models;
 
-public class PaginationViewModel<TModel>
+public class PaginationModel<T>
 {
-    public IEnumerable<TModel> Items { get; }
+    public IEnumerable<T> Items { get; }
     public int Page { get; }
     public int PageSize { get; }
     public int TotalPages { get; }
 
-    public PaginationViewModel(IEnumerable<TModel> items, int page, int pageSize, int count)
+    public PaginationModel(IEnumerable<T> items, int page, int pageSize, int count)
     {
         Items = items;
         Page = page;

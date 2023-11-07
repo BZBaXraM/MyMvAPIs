@@ -1,10 +1,10 @@
-using BMDbMvcUI.Data.Roles;
-using BMDbMvcUI.Models;
-using BMDbMvcUI.Services;
+using BMDb.MVC.Data.Roles;
+using BMDb.MVC.Models;
+using BMDb.MVC.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BMDbMvcUI.Controllers;
+namespace BMDb.MVC.Controllers;
 
 [Authorize(Roles = Roles.Admin)]
 public class EditorController : Controller

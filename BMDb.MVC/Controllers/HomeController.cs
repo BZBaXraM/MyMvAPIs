@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace BMDbMvcUI.Controllers;
+namespace BMDb.MVC.Controllers;
 
 public class HomeController : Controller
 {

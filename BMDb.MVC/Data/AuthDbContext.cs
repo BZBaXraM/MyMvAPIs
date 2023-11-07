@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace BMDbMvcUI.Data;
+namespace BMDb.MVC.Data;
 
 public class AuthDbContext : IdentityDbContext<IdentityUser>
 {

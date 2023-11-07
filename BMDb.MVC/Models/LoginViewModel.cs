@@ -1,4 +1,4 @@
-namespace BMDbMvcUI.Models;
+namespace BMDb.MVC.Models;
 
 public class LoginViewModel
 {

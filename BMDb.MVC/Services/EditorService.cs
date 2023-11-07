@@ -1,8 +1,8 @@
 using System.Text;
 using System.Text.Json;
-using BMDbMvcUI.Models;
+using BMDb.MVC.Models;
 
-namespace BMDbMvcUI.Services;
+namespace BMDb.MVC.Services;
 
 public class EditorService : IAsyncEditorService
 {

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity.UI.Services;
 
-namespace BMDbMvcUI.CustomService;
+namespace BMDb.MVC.CustomService;
 
 public class EmailSender : IEmailSender
 {

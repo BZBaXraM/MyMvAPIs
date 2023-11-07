@@ -2,16 +2,13 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace BMDbMvcUI.Areas.Identity.Pages.Account
+namespace BMDb.MVC.Areas.Identity.Pages.Account
 {
     public class ConfirmEmailChangeModel : PageModel
     {

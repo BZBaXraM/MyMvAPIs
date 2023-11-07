@@ -1,6 +1,6 @@
-using BMDbMvcUI.CustomService;
-using BMDbMvcUI.Data;
-using BMDbMvcUI.Services;
+using BMDb.MVC.CustomService;
+using BMDb.MVC.Data;
+using BMDb.MVC.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;

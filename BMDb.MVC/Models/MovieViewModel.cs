@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BMDbMvcUI.Models;
+namespace BMDb.MVC.Models;
 
 public class MovieViewModel
 {

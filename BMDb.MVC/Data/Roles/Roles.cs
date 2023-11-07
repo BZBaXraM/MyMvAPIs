@@ -1,4 +1,4 @@
-namespace BMDbMvcUI.Data.Roles;
+namespace BMDb.MVC.Data.Roles;
 
 public static class Roles
 {
