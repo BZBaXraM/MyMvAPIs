@@ -1,50 +1,50 @@
-﻿@page "/fetchdata"
-@using BMDb.BlazorApp.Models
-@using BMDb.BlazorApp.Services
-@inject IAsyncMovieService MovieService
-
-<PageTitle>BMDb</PageTitle>
-
-<h1>BMDb</h1>
-
-
-@if (_movies == null)
-{
-    <p>
-        <em>Loading...</em>
-    </p>
-}
-else
-{
-    <div class="row">
-        @foreach (var item in _movies)
-        {
-            <div class="col-md-3 mb-2">
-                @if (!string.IsNullOrEmpty(item.Title))
-                {
-                    <img src="@item.Poster" class="card-img-top" alt="@item.Title Poster">
-                }
-
-                <div class="card-body">
-                    <h5>
-                        @item.Title
-                    </h5>
-                    <p class="card-text">
-                        <b>@item.Year</b>
-                    </p>
-                </div>
-            </div>
-        }
-    </div>
-}
-
-@code {
-    private List<MovieModel>? _movies;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await Task.Delay(2000);
-        _movies = await MovieService.GetMoviesAsync();
-    }
-
-}
+﻿@* @page "/fetchdata" *@
+@* @using BMDb.BlazorApp.Models *@
+@* @using BMDb.BlazorApp.Services *@
+@* @inject IAsyncMovieService MovieService *@
+@* *@
+@* <PageTitle>BMDb</PageTitle> *@
+@* *@
+@* <h1>BMDb</h1> *@
+@* *@
+@* *@
+@* @if (_movies == null) *@
+@* { *@
+@*     <p> *@
+@*         <em>Loading...</em> *@
+@*     </p> *@
+@* } *@
+@* else *@
+@* { *@
+@*     <div class="row"> *@
+@*         @foreach (var item in _movies) *@
+@*         { *@
+@*             <div class="col-md-3 mb-2"> *@
+@*                 @if (!string.IsNullOrEmpty(item.Title)) *@
+@*                 { *@
+@*                     <img src="@item.Poster" class="card-img-top" alt="@item.Title Poster"> *@
+@*                 } *@
+@* *@
+@*                 <div class="card-body"> *@
+@*                     <h5> *@
+@*                         @item.Title *@
+@*                     </h5> *@
+@*                     <p class="card-text"> *@
+@*                         <b>@item.Year</b> *@
+@*                     </p> *@
+@*                 </div> *@
+@*             </div> *@
+@*         } *@
+@*     </div> *@
+@* } *@
+@* *@
+@* @code { *@
+@*     private List<MovieModel>? _movies; *@
+@* *@
+@*     protected override async Task OnInitializedAsync() *@
+@*     { *@
+@*         await Task.Delay(2000); *@
+@*         _movies = await MovieService.GetMoviesAsync(); *@
+@*     } *@
+@* *@
+@* } *@
