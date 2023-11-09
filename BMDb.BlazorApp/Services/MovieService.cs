@@ -10,10 +10,10 @@ public class MovieService : IAsyncMovieService
     public MovieService(IHttpClientFactory httpClientFactory)
         => _httpClientFactory = httpClientFactory;
 
-    public async Task<List<MovieModel>> GetMoviesAsync(int page)
+    public async Task<List<MovieModel>> GetMoviesAsync()
     {
         var client = _httpClientFactory.CreateClient();
-        var message = await client.GetAsync($"https://localhost:7212/api/movie?pageNumber={page}");
+        var message = await client.GetAsync($"https://localhost:7212/api/movie");
         message.EnsureSuccessStatusCode();
         _movies.AddRange((await message.Content.ReadFromJsonAsync<IEnumerable<MovieModel>>())!);
 

@@ -4,6 +4,6 @@ namespace BMDb.BlazorApp.Services;
 
 public interface IAsyncMovieService
 {
-    Task<List<MovieModel>> GetMoviesAsync(int page );
+    Task<List<MovieModel>> GetMoviesAsync();
     Task<List<MovieModel>> SearchMoviesAsync(string? search);
 }

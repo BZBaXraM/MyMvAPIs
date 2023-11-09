@@ -29,49 +29,24 @@ else
                                 @item.Title
                             </h5>
                             <p class="card-text">
-                                <b>@item.Year</b>
-                                <b>@item.Director</b>
+                                <strong>Year:</strong> @item.Year<br/>
+                                <strong>Genre:</strong> @item.Genre<br/>
+                                <strong>Director:</strong> @item.Director<br/>
                             </p>
                         </div>
                     </div>
                 }
-
             </div>
-        </div>
-        <div>
-            <input type="button" class="btn-lg btn" id="prev" onclick="@GetPreviousPage()" value="Previous"/>
-            <input type="button" class="btn-lg btn" id="next" onclick="@GetNextPage()" value="Next"/>
         </div>
     </form>
 }
 
 @code {
     private List<MovieModel>? _movies;
-    private int _currentPage = 1;
 
     protected override async Task OnInitializedAsync()
     {
-        await IndexAsync();
-    }
-
-    private async Task GetNextPage()
-    {
-        _currentPage++;
-        await IndexAsync();
-    }
-
-    private async Task GetPreviousPage()
-    {
-        if (_currentPage > 1)
-        {
-            _currentPage--;
-            await IndexAsync();
-        }
-    }
-
-    private async Task IndexAsync()
-    {
-        _movies = await MovieService.GetMoviesAsync(_currentPage);
+        _movies = await MovieService.GetMoviesAsync();
     }
 
 }

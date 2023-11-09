@@ -1,9 +1,9 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Fira Code', Helvetica, Arial, sans-serif;
     background-color: #1a1e21;
-    color: #badce3;;
+    color: #badce3;
     font-size: 0.9rem;
 }
 
@@ -89,26 +89,15 @@ h3.card-title {
     margin-bottom: 10px;
 }
 
-#next {
-    color: #badce3;
-}
-
-#prev {
-    color: #badce3;
-}
-
 .height {
     height: 55vh;
-    
 }
 
 .form {
-
     position: relative;
 }
 
 .form .fa-search {
-
     position: absolute;
     top: 20px;
     left: 20px;
@@ -117,7 +106,6 @@ h3.card-title {
 }
 
 .form span {
-
     position: absolute;
     right: 17px;
     top: 13px;
@@ -131,19 +119,23 @@ h3.card-title {
 }
 
 .left-pan i {
-
     padding-left: 10px;
 }
 
 .form-input {
-
+    background-color: #1a1e21;
     height: 55px;
     text-indent: 33px;
     border-radius: 10px;
+    /*color: #9ca3af;*/
 }
 
 .form-input:focus {
-
     box-shadow: none;
-    border: none;
+    /*border: none;*/
+}
+
+.form-input:hover {
+    background-color: #1a1e21;
+    color: wheat;
 }
