@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using BMDb.API.Data;
 using BMDb.API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -95,7 +99,10 @@ public class MovieService : IAsyncMovieService
             Title = item.Title,
             Year = item.Year,
             Director = item.Director,
-            Genre = item.Genre
+            Genre = item.Genre,
+            Plot = item.Plot,
+            Poster = item.Poster,
+            ImdbId = item.ImdbId
         };
     }
 
@@ -108,7 +115,7 @@ public class MovieService : IAsyncMovieService
     {
         await _context.Movies.AddAsync(movie);
         await _context.SaveChangesAsync();
-        
+
         return movie;
     }
 
@@ -130,6 +137,9 @@ public class MovieService : IAsyncMovieService
         update.Year = movie.Year;
         movie.Director = movie.Director;
         update.Genre = movie.Genre;
+        update.Plot = movie.Plot;
+        update.Poster = movie.Poster;
+        update.ImdbId = movie.ImdbId;
         await _context.SaveChangesAsync();
 
         return movie;
@@ -189,5 +199,15 @@ public class MovieService : IAsyncMovieService
     public async Task<IEnumerable<Movie>> GetMovieByGenreAsync(string genre)
     {
         return await _context.Movies.Where(x => x.Genre == genre).ToListAsync();
+    }
+
+    /// <summary>
+    /// This method is used to get a movie by imdb id.
+    /// </summary>
+    /// <param name="imdbId"></param>
+    /// <returns></returns>
+    public async Task<IEnumerable<Movie>> GetMovieByImdbIdAsync(string imdbId)
+    {
+        return await _context.Movies.Where(x => x.ImdbId == imdbId).ToListAsync();
     }
 }

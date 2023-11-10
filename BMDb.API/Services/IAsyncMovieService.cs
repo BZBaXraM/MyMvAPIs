@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using BMDb.API.Models;
 
 namespace BMDb.API.Services;
@@ -70,4 +73,11 @@ public interface IAsyncMovieService
     /// <param name="genre"></param>
     /// <returns></returns>
     Task<IEnumerable<Movie>> GetMovieByGenreAsync(string genre);
+
+    /// <summary>
+    /// This method is used to get a movie by imdb id.
+    /// </summary>
+    /// <param name="imdbId"></param>
+    /// <returns></returns>
+    Task<IEnumerable<Movie>> GetMovieByImdbIdAsync(string imdbId);
 }

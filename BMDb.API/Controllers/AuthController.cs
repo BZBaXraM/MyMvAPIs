@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Threading.Tasks;
 using BMDb.API.DTOs;
 using BMDb.API.Services;
 using Microsoft.AspNetCore.Identity;

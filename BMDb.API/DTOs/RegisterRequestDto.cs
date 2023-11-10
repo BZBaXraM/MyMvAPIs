@@ -1,3 +1,5 @@
+using System;
+
 namespace BMDb.API.DTOs;
 
 /// <summary>
@@ -5,9 +7,18 @@ namespace BMDb.API.DTOs;
 /// </summary>
 public class RegisterRequestDto
 {
-    public string Username { get; set; }
+    /// <summary>
+    /// This property is used to define the Username property.
+    /// </summary>
+    public string Username { get; set; } = string.Empty;
 
-    public string Password { get; set; }
+    /// <summary>
+    /// This property is used to define the Password property.
+    /// </summary>
+    public string Password { get; set; } = string.Empty;
 
-    public string[] Roles { get; set; }
+    /// <summary>
+    /// This property is used to define the Roles property.
+    /// </summary>
+    public string[] Roles { get; set; } = Array.Empty<string>();
 }

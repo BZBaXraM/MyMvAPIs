@@ -1,3 +1,5 @@
+using System;
+
 namespace BMDb.API.DTOs;
 
 /// <summary>
@@ -34,4 +36,13 @@ public class MovieDto
     /// This property is used to define the Genre property.
     /// </summary>
     public string Genre { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// This property is used to define the Plot property.
+    /// </summary>
+    public string? Plot { get; set; }
+    /// <summary>
+    /// This property is used to define the ImdbId property.
+    /// </summary>
+    public string ImdbId { get; set; } = string.Empty;
 }

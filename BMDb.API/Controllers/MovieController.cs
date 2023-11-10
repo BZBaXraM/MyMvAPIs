@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Text.Json;
+using System.Threading.Tasks;
 using AutoMapper;
 using BMDb.API.CustomFilters;
 using BMDb.API.Data;
@@ -6,6 +9,7 @@ using BMDb.API.DTOs;
 using BMDb.API.Models;
 using BMDb.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace BMDb.API.Controllers;
 
@@ -162,4 +166,13 @@ public class MovieController : ControllerBase
     // [Authorize(Roles = "Reader")]
     public async Task<IActionResult> GetMovieByGenreAsync(string genre)
         => Ok(await _service.GetMovieByGenreAsync(genre));
+
+    /// <summary>
+    /// This method is used to get a movie by imdb id.
+    /// </summary>
+    /// <param name="imdb"></param>
+    /// <returns></returns>
+    [HttpGet("imdb/{imdb}")]
+    public async Task<IActionResult> GetMovieByImdbIdAsync(string imdb)
+        => Ok(await _service.GetMovieByImdbIdAsync(imdb));
 }

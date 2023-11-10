@@ -49,8 +49,4 @@
         <Folder Include="Logs\" />
     </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\BMDb.MVC\BMDb.MVC.csproj" />
-    </ItemGroup>
-
 </Project>
