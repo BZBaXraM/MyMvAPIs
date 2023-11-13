@@ -1,3 +1,4 @@
+@page "/"
 @page "/search"
 @using BMDb.BlazorApp.Services
 @inject IAsyncMovieService MovieService
@@ -6,6 +7,7 @@
 
 <PageTitle>Search</PageTitle>
 
+<h1 id="welcome-h1">Welcome to BMDb!</h1>
 <form method="get" class="search-form" @onsubmit="SearchAsync">
 
     <div class="container">

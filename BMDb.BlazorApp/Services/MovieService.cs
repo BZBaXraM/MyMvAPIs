@@ -13,8 +13,10 @@ public class MovieService : IAsyncMovieService
     public async Task<List<MovieModel>> GetMoviesAsync()
     {
         var client = _httpClientFactory.CreateClient();
-        var message = await client.GetAsync($"https://localhost:7212/api/movie");
+        var message = await client.GetAsync($"https://localhost:7212/api/Movie");
         message.EnsureSuccessStatusCode();
+        _movies.Clear();
+        
         _movies.AddRange((await message.Content.ReadFromJsonAsync<IEnumerable<MovieModel>>())!);
 
         return _movies;
@@ -34,5 +36,14 @@ public class MovieService : IAsyncMovieService
         var searchResults = await response.Content.ReadFromJsonAsync<IEnumerable<MovieModel>>();
 
         return searchResults?.ToList() ?? new List<MovieModel>();
+    }
+
+    public async Task<int> GetTotalCountAsync()
+    {
+        var client = _httpClientFactory.CreateClient();
+        var response = await client.GetAsync("https://localhost:7212/api/Movie/count");
+        response.EnsureSuccessStatusCode();
+
+        return await response.Content.ReadFromJsonAsync<int>();
     }
 }

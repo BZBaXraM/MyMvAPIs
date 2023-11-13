@@ -1,50 +1,67 @@
 ﻿@* @page "/fetchdata" *@
+@* @page "/fetchdata/{PageNumber:int}" *@
 @* @using BMDb.BlazorApp.Models *@
+@* @using BMDb.BlazorApp.Models.Pagination *@
 @* @using BMDb.BlazorApp.Services *@
 @* @inject IAsyncMovieService MovieService *@
-@* *@
-@* <PageTitle>BMDb</PageTitle> *@
-@* *@
-@* <h1>BMDb</h1> *@
+@* <h3>MovieList</h3> *@
 @* *@
 @* *@
 @* @if (_movies == null) *@
 @* { *@
-@*     <p> *@
-@*         <em>Loading...</em> *@
-@*     </p> *@
+@*     <p>Loading...</p> *@
 @* } *@
 @* else *@
 @* { *@
-@*     <div class="row"> *@
-@*         @foreach (var item in _movies) *@
+@*     <table class="table"> *@
+@*         <thead> *@
+@*         <tr> *@
+@*             <th>Id</th> *@
+@*             <th>Title</th> *@
+@*             <th>Director</th> *@
+@*             <th>Genre</th> *@
+@*             <th>Year</th> *@
+@*         </tr> *@
+@*         </thead> *@
+@*         <tbody> *@
+@*         @foreach (var item in _movies!) *@
 @*         { *@
-@*             <div class="col-md-3 mb-2"> *@
-@*                 @if (!string.IsNullOrEmpty(item.Title)) *@
-@*                 { *@
-@*                     <img src="@item.Poster" class="card-img-top" alt="@item.Title Poster"> *@
-@*                 } *@
+@*             <tr> *@
+@*                 <td>@item.Id</td> *@
+@*                 <td>@item.Title</td> *@
+@*                 <td>@item.Director</td> *@
+@*                 <td>@item.Genre</td> *@
+@*                 <td>@item.Year</td> *@
+@*             </tr> *@
+@*         } *@
+@*         </tbody> *@
+@*     </table> *@
 @* *@
-@*                 <div class="card-body"> *@
-@*                     <h5> *@
-@*                         @item.Title *@
-@*                     </h5> *@
-@*                     <p class="card-text"> *@
-@*                         <b>@item.Year</b> *@
-@*                     </p> *@
-@*                 </div> *@
-@*             </div> *@
+@*     <div> *@
+@*         @for (int i = 1; i <= 5; i++) *@
+@*         { *@
+@*             <span><a href="fetchdata/@i"> @i </a>|</span> *@
 @*         } *@
 @*     </div> *@
 @* } *@
 @* *@
 @* @code { *@
-@*     private List<MovieModel>? _movies; *@
+@*     // MovieModel[] movies; *@
+@*     private List<MovieModel> _movies; *@
 @* *@
+@*     [Parameter] *@
+@*     public int PageNumber { get; set; } *@
+@* *@
+@*     protected override async Task OnParametersSetAsync() *@
+@*     { *@
+@*         if (PageNumber < 1) PageNumber = 1; *@
+@* *@
+@*         _movies = await MovieService.GetPagedMoviesAsync(PageNumber - 1, 10); *@
+@*     } *@
+@*      *@
 @*     protected override async Task OnInitializedAsync() *@
 @*     { *@
-@*         await Task.Delay(2000); *@
-@*         _movies = await MovieService.GetMoviesAsync(); *@
+@*         await OnParametersSetAsync(); *@
 @*     } *@
 @* *@
 @* } *@

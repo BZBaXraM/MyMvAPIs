@@ -14,24 +14,6 @@
 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span>
-                @if (!IconMenuActive)
-                {
-                    <label>Home</label>
-                }
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span>
-                @if (!IconMenuActive)
-                {
-                    <label>Fetch data</label>
-                }
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
             <NavLink class="nav-link" href="search">
                 <span class="oi oi-hard-drive" aria-hidden="true"></span>
                 @if (!IconMenuActive)
@@ -40,6 +22,25 @@
                 }
             </NavLink>
         </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="movies" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span>
+                @if (!IconMenuActive)
+                {
+                    <label>Movies</label>
+                }
+            </NavLink>
+        </div>
+        @* <div class="nav-item px-3"> *@
+        @*     <NavLink class="nav-link" href="fetchdata"> *@
+        @*         <span class="oi oi-list-rich" aria-hidden="true"></span> *@
+        @*         @if (!IconMenuActive) *@
+        @*         { *@
+        @*             <label>Fetch data</label> *@
+        @*         } *@
+        @*     </NavLink> *@
+        @* </div> *@
+
     </nav>
 </div>
 

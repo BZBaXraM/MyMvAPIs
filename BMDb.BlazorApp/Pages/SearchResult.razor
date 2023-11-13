@@ -34,12 +34,14 @@ else
                             <img src="@item.Poster" class="card-img-top" alt="@item.Title"/>
                         }
                         <div class="card-body">
-                            <h3 class="card-title text-success">@item.Title</h3>
+                            <h3 style="color: #badce3" class="card-title text-success">@item.Title</h3>
                             <p class="card-text">
                                 <strong>Year:</strong> @item.Year<br/>
                                 <strong>Genre:</strong> @item.Genre<br/>
-                                <strong>Director:</strong> @item.Director
+                                <strong>Director:</strong> @item.Director <br/>
+                                <strong>IMDb Id:</strong> @item.ImdbId <br/>
                             </p>
+                            <h4>@item.Plot</h4>
                         </div>
                     </div>
                 </div>
