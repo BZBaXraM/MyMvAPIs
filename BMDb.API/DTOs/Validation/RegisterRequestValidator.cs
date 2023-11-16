@@ -12,7 +12,7 @@ public class RegisterRequestValidator : AbstractValidator<RegisterRequestDto>
     /// </summary>
     public RegisterRequestValidator()
     {
-        RuleFor(x => x.Username).NotEmpty().EmailAddress();
+        RuleFor(x => x.Email).NotEmpty().EmailAddress();
         RuleFor(x => x.Password).NotEmpty().MinimumLength(8).Password(mustContainDigit: false);
     }
 }

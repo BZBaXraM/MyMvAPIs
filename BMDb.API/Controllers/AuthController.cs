@@ -1,9 +1,9 @@
-using System.Linq;
-using System.Threading.Tasks;
 using BMDb.API.DTOs;
+using BMDb.API.Models;
 using BMDb.API.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BMDb.API.Controllers;
 
@@ -14,47 +14,55 @@ namespace BMDb.API.Controllers;
 [ApiController]
 public class AuthController : ControllerBase
 {
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<AppUser> _userManager;
+    private readonly SignInManager<AppUser> _signInManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly ITokenService _service;
 
     /// <summary>
-    /// Constructor for injecting UserManager.
+    /// Register a new user.
     /// </summary>
     /// <param name="userManager"></param>
+    /// <param name="signInManager"></param>
+    /// <param name="roleManager"></param>
     /// <param name="service"></param>
-    public AuthController(UserManager<IdentityUser> userManager, ITokenService service)
+    public AuthController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
+        RoleManager<IdentityRole> roleManager, ITokenService service)
     {
         _userManager = userManager;
+        _signInManager = signInManager;
+        _roleManager = roleManager;
         _service = service;
     }
 
     /// <summary>
-    /// Registers a new user.
+    /// Register a user.
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost("register")]
-    public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequestDto request)
+    public async Task<ActionResult<AuthTokenDto>> Register([FromBody] RegisterRequestDto request)
     {
-        var user = new IdentityUser
+        var existingUser = await _userManager.FindByEmailAsync(request.Email);
+        if (existingUser is not null)
         {
-            UserName = request.Username,
-            Email = request.Username
+            return Conflict("User with same email already exists");
+        }
+
+        var user = new AppUser
+        {
+            UserName = request.Email,
+            Email = request.Email,
+            RefreshToken = Guid.NewGuid().ToString("N").ToLower()
         };
 
         var result = await _userManager.CreateAsync(user, request.Password);
-
-        if (request.Roles.Any())
+        if (!result.Succeeded)
         {
-            result = await _userManager.AddToRolesAsync(user, request.Roles);
+            return BadRequest(result.Errors);
         }
 
-        if (result.Succeeded)
-        {
-            return Ok("User created successfully! Please login.");
-        }
-
-        return BadRequest("User creation failed! Please check user details and try again.");
+        return await GenerateToken(user);
     }
 
     /// <summary>
@@ -63,30 +71,69 @@ public class AuthController : ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost("login")]
-    public async Task<IActionResult> LoginAsync([FromBody] LoginRequestDto request)
+    public async Task<ActionResult<AuthTokenDto>> Login([FromBody] LoginRequestDto request)
     {
-        var user = await _userManager.FindByEmailAsync(request.Username);
-
+        var user = await _userManager.FindByEmailAsync(request.Email);
         if (user is null)
         {
-            return BadRequest("Username or password is incorrect!");
+            return Unauthorized();
         }
 
-        var checkPassword = await _userManager.CheckPasswordAsync(user, request.Password);
-
-        if (!checkPassword)
+        var canSignIn = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
+        if (!canSignIn.Succeeded)
         {
-            return BadRequest("Username or password is incorrect!");
+            return Unauthorized();
         }
 
-        var roles = await _userManager.GetRolesAsync(user);
-        var jwtToken = _service.CreateToken(user, roles.ToList());
+        var role = await _userManager.GetRolesAsync(user);
+        var userClaims = await _userManager.GetClaimsAsync(user);
 
-        var response = new LoginResponseDto
+        var accessToken = _service.GenerateSecurityToken(user.Id, user.UserName, role, userClaims);
+        var refreshToken = Guid.NewGuid().ToString("N").ToLower();
+        user.RefreshToken = refreshToken;
+        await _userManager.UpdateAsync(user);
+
+        return new AuthTokenDto
         {
-            JwtToken = jwtToken
+            AccessToken = accessToken,
+            RefreshToken = refreshToken
         };
+    }
 
-        return Ok(response);
+    /// <summary>
+    /// Refresh token - get new access token using refresh token
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [HttpPost("refresh")]
+    public async Task<ActionResult<AuthTokenDto>> Refresh(
+        [FromBody] RefreshTokenRequest request)
+    {
+        var user = await _userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == request.RefreshToken);
+        if (user is null)
+        {
+            return Unauthorized();
+        }
+
+        return await GenerateToken(user);
+    }
+
+
+    private async Task<AuthTokenDto> GenerateToken(AppUser user)
+    {
+        var role = await _userManager.GetRolesAsync(user);
+        var userClaims = await _userManager.GetClaimsAsync(user);
+
+        var accessToken = _service.GenerateSecurityToken(user.Id, user.UserName,
+            role, userClaims);
+        var refreshToken = user.RefreshToken;
+
+        await _userManager.UpdateAsync(user);
+
+        return new AuthTokenDto
+        {
+            AccessToken = accessToken,
+            RefreshToken = refreshToken
+        };
     }
 }

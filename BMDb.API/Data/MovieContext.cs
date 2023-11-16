@@ -1,12 +1,13 @@
-using System;
-using System.Collections.Generic;
 using BMDb.API.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BMDb.API.Data;
 
 /// <inheritdoc />
-public class MovieContext : DbContext
+public class MovieContext : IdentityDbContext<AppUser>
+
 {
     /// <inheritdoc />
     public MovieContext(DbContextOptions<MovieContext> options) : base(options)
@@ -17,11 +18,18 @@ public class MovieContext : DbContext
     public virtual DbSet<Movie> Movies => Set<Movie>();
 
     /// <summary>
+    ///     Users DbSet
+    /// </summary>
+    public override DbSet<AppUser> Users => Set<AppUser>();
+
+    /// <summary>
     /// 
     /// </summary>
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+        
         var movies = new List<Movie>
         {
             new()
@@ -37,6 +45,7 @@ public class MovieContext : DbContext
                     "Over the course of several years, two convicts form a friendship, seeking consolation and, eventually, redemption through basic compassion.",
                 ImdbId = "tt0111161"
             },
+
             new()
             {
                 Id = Guid.NewGuid(),

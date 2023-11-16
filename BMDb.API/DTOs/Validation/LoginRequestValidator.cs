@@ -8,7 +8,7 @@ public class LoginRequestValidator : AbstractValidator<LoginRequestDto>
     /// <inheritdoc />
     public LoginRequestValidator()
     {
-        RuleFor(x => x.Username).NotEmpty().EmailAddress();
+        RuleFor(x => x.Email).NotEmpty().EmailAddress();
         RuleFor(x => x.Password).NotEmpty().MinimumLength(8);
     }
 }

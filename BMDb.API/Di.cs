@@ -1,17 +1,16 @@
-using System;
-using System.IO;
 using System.Text;
+using BMDb.API.Auth;
 using BMDb.API.Data;
 using BMDb.API.DTOs.Validation;
 using BMDb.API.Mappings;
+using BMDb.API.Models;
+using BMDb.API.Providers;
 using BMDb.API.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -27,7 +26,7 @@ public static class Di
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
-    public static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddHttpContextAccessor();
         services.AddSwaggerGen(setup =>
@@ -37,12 +36,18 @@ public static class Di
                 Title = "BMDb.API",
                 Version = "v1"
             });
-            setup.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+            var path = Path.Combine(AppContext.BaseDirectory, "BahramMVMovieAPI.xml");
+            setup.IncludeXmlComments(path);
+
+            setup.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Name = "Authorization",
-                In = ParameterLocation.Header,
                 Type = SecuritySchemeType.ApiKey,
-                Scheme = JwtBearerDefaults.AuthenticationScheme
+                Scheme = "Bearer",
+                BearerFormat = "JWT",
+                In = ParameterLocation.Header,
+                Description =
+                    "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\""
             });
 
             setup.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -53,61 +58,78 @@ public static class Di
                         Reference = new OpenApiReference
                         {
                             Type = ReferenceType.SecurityScheme,
-                            Id = JwtBearerDefaults.AuthenticationScheme,
-                        },
-                        Scheme = "oauth2",
-                        Name = JwtBearerDefaults.AuthenticationScheme,
-                        In = ParameterLocation.Header,
+                            Id = "Bearer",
+                        }
                     },
-                    Array.Empty<string>()
+                    new string[] { }
                 }
             });
-            var path = Path.Combine(AppContext.BaseDirectory, "BahramMVMovieAPI.xml");
-            setup.IncludeXmlComments(path);
         });
 
         services.AddDbContext<MovieContext>(options =>
         {
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
         });
-        services.AddDbContext<AuthDbContext>(options =>
-        {
-            options.UseNpgsql(configuration.GetConnectionString("IdentityConnection"));
-        });
 
         services.AddScoped<IAsyncMovieService, MovieService>();
-        services.AddScoped<ITokenService, TokenService>();
         services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblyContaining<RegisterRequestValidator>();
         services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
-        services.AddIdentityCore<IdentityUser>()
-            .AddRoles<IdentityRole>()
-            .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("MovieApi")
-            .AddEntityFrameworkStores<AuthDbContext>()
-            .AddDefaultTokenProviders();
+        
+        return services;
+    }
 
-        services.Configure<IdentityOptions>(options =>
+    /// <summary>
+    /// AuthenticationAndAuthorization method.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <returns></returns>
+    public static IServiceCollection AuthenticationAndAuthorization(this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        services.AddScoped<IRequestUserProvider, RequestUserProvider>();
+        services.AddIdentity<AppUser, IdentityRole>()
+            .AddEntityFrameworkStores<MovieContext>();
+        services.AddScoped<ITokenService, TokenService>();
+
+        JwtConfig jwtConfig = new();
+        configuration.GetSection("JWT").Bind(jwtConfig);
+        services.AddSingleton(jwtConfig);
+
+        services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(jwt =>
+            {
+                jwt.SaveToken = true;
+                jwt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    RequireExpirationTime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtConfig.Issuer,
+                    ValidAudience = jwtConfig.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Secret))
+                };
+            });
+
+        services.AddAuthorization(options =>
         {
-            options.Password.RequireDigit = false;
-            options.Password.RequireLowercase = false;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireUppercase = false;
-            options.Password.RequiredLength = 6;
-            options.Password.RequiredUniqueChars = 1;
+            options.AddPolicy("CanTest", policy =>
+            {
+                policy.RequireAuthenticatedUser();
+                // policy.RequireClaim("CanTest");
+                policy.Requirements.Add(new CanTestRequirment());
+            });
         });
 
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = configuration["Jwt:Issuer"],
-                ValidAudience = configuration["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
-            });
         return services;
     }
 }

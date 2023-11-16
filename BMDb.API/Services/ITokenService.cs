@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 
 namespace BMDb.API.Services;
@@ -9,10 +10,16 @@ namespace BMDb.API.Services;
 public interface ITokenService
 {
     /// <summary>
-    /// CreateToken method.
+    /// Creates a token for a user.
     /// </summary>
-    /// <param name="user"></param>
+    /// <param name="id"></param>
+    /// <param name="email"></param>
     /// <param name="roles"></param>
+    /// <param name="userClaims"></param>
     /// <returns></returns>
-    string CreateToken(IdentityUser user, IEnumerable<string> roles);
+    string GenerateSecurityToken(
+        string id,
+        string email,
+        IEnumerable<string> roles,
+        IEnumerable<Claim> userClaims);
 }

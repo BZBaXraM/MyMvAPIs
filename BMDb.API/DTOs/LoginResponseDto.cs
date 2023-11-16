@@ -3,10 +3,14 @@ namespace BMDb.API.DTOs;
 /// <summary>
 ///    DTO for the LoginResponse
 /// </summary>
-public class LoginResponseDto
+public class AuthTokenDto
 {
     /// <summary>
-    ///   The JWT token
+    ///   AccessToken
     /// </summary>
-    public string JwtToken { get; set; }
+    public string AccessToken { get; set; } = string.Empty;
+    /// <summary>
+    ///  RefreshToken
+    /// </summary>
+    public string RefreshToken { get; set; } = string.Empty;
 }

@@ -80,4 +80,10 @@ public interface IAsyncMovieService
     /// <param name="imdbId"></param>
     /// <returns></returns>
     Task<IEnumerable<Movie>> GetMovieByImdbIdAsync(string imdbId);
+
+    /// <summary>
+    /// This method is used to get a movie by type.
+    /// </summary>
+    /// <returns></returns>
+    Task<int> GetTotalCountAsync();
 }

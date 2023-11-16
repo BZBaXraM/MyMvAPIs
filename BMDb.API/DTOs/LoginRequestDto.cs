@@ -5,7 +5,13 @@ namespace BMDb.API.DTOs;
 /// </summary>
 public class LoginRequestDto
 {
-    public string Username { get; set; }
+    /// <summary>
+    /// Email
+    /// </summary>
+    public string Email { get; set; } = string.Empty;
 
-    public string Password { get; set; }
+    /// <summary>
+    /// Password
+    /// </summary>
+    public string Password { get; set; } = string.Empty;
 }

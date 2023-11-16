@@ -1,8 +1,4 @@
 using BMDb.API;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +18,8 @@ builder.Services.AddCors();
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
-builder.Services.AddRepositories(builder.Configuration);
+builder.Services.AuthenticationAndAuthorization(builder.Configuration);
+builder.Services.AddSwagger(builder.Configuration);
 
 var app = builder.Build();
 
@@ -47,4 +44,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

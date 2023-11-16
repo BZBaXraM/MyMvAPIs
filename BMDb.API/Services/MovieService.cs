@@ -210,4 +210,13 @@ public class MovieService : IAsyncMovieService
     {
         return await _context.Movies.Where(x => x.ImdbId == imdbId).ToListAsync();
     }
+
+    /// <summary>
+    /// This method is used to get the total count of movies.
+    /// </summary>
+    /// <returns></returns>
+    public async Task<int> GetTotalCountAsync()
+    {
+        return await _context.Movies.CountAsync();
+    }
 }

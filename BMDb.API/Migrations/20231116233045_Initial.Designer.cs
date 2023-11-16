@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BMDb.API.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20231110194131_Initial")]
+    [Migration("20231116233045_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -25,11 +25,81 @@ namespace BMDb.API.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("BMDb.API.Models.AppUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("BMDb.API.Models.Movie", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("text");
 
                     b.Property<string>("Director")
                         .IsRequired()
@@ -59,12 +129,14 @@ namespace BMDb.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId");
+
                     b.ToTable("Movies");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8915f3bb-e281-41b4-b289-63c454ad7676"),
+                            Id = new Guid("58ec58f6-a9b1-4079-be30-e462ab9f77ac"),
                             Director = "Frank Darabont",
                             Genre = "Drama",
                             ImdbId = "tt0111161",
@@ -75,7 +147,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1968f256-e7e2-4594-aa48-2edf0bb27a38"),
+                            Id = new Guid("aeaa1822-fbb8-49d3-afbb-96095fb2262d"),
                             Director = "Francis Ford Coppola",
                             Genre = "Crime, Drama",
                             ImdbId = "tt0068646",
@@ -86,7 +158,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ed70ab04-79d8-4797-ac51-80667303fa5b"),
+                            Id = new Guid("0353b82d-6823-450c-9eea-106db2b276d2"),
                             Director = "Christopher Nolan",
                             Genre = "Action, Crime, Drama",
                             ImdbId = "tt0468569",
@@ -97,7 +169,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("21dc840c-f4ff-4a2d-a6b6-dbeefde18b1d"),
+                            Id = new Guid("0dc1680d-7323-4b99-a532-e9a8a0b45ea4"),
                             Director = "Christopher Nolan",
                             Genre = "Action, Adventure",
                             ImdbId = "tt1345836",
@@ -108,7 +180,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4dcbcf98-c059-4212-8c65-105153ba04a4"),
+                            Id = new Guid("05bc992e-c5cc-487b-8e85-07c97020893b"),
                             Director = "Francis Ford Coppola",
                             Genre = "Crime, Drama",
                             ImdbId = "tt0071562",
@@ -119,7 +191,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2053b0bd-2215-4020-8fa2-3f1436a065c8"),
+                            Id = new Guid("80e1a340-9545-439a-884e-d16569345903"),
                             Director = "Quentin Tarantino",
                             Genre = "Crime, Drama",
                             ImdbId = "tt0110912",
@@ -130,7 +202,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ed7f96c6-868e-4177-a2dd-ec87c1099591"),
+                            Id = new Guid("3db5b0c3-4204-4274-88c8-9027628d1159"),
                             Director = "Steven Spielberg",
                             Genre = "Biography, Drama, History",
                             ImdbId = "tt0108052",
@@ -141,7 +213,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9ff0289b-f262-42f8-9107-10ef20c688a8"),
+                            Id = new Guid("e973c8db-127b-4780-ae3e-0f955d523ffb"),
                             Director = "David Fincher",
                             Genre = "Drama",
                             ImdbId = "tt0137523",
@@ -152,7 +224,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d1e1402e-0724-470a-851b-3ff81fef361f"),
+                            Id = new Guid("082a50f9-26ed-42ed-b68e-94aa1cc9bd68"),
                             Director = "Lana Wachowski, Lilly Wachowski",
                             Genre = "Action, Sci-Fi",
                             ImdbId = "tt0133093",
@@ -163,7 +235,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c0987243-9182-4c69-b852-1078d3c4bdbc"),
+                            Id = new Guid("6ff29f25-0ce3-414c-8ef7-897d1f2a33dd"),
                             Director = "Martin Scorsese",
                             Genre = "Biography, Crime, Drama",
                             ImdbId = "tt0099685",
@@ -174,7 +246,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3d6c7cf1-8168-47a7-b38b-270ce32af6e4"),
+                            Id = new Guid("60caae89-356f-4723-aef8-0a987ae2ebcd"),
                             Director = "Sam Raimi",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt0145487",
@@ -185,7 +257,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e27a1bd8-49b8-4a16-92ec-306c78f3c2f9"),
+                            Id = new Guid("8e2edd13-e315-4290-b074-a5960ac7654c"),
                             Director = "Sam Raimi",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt0316654",
@@ -196,7 +268,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b1798200-f172-4f89-ad53-fdf5bf282742"),
+                            Id = new Guid("d82f0b54-5663-469f-ae6a-eb10e78fb521"),
                             Director = "Sam Raimi",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt0413300",
@@ -207,7 +279,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0a6a59e7-ccac-4735-91b7-8127ddaad14e"),
+                            Id = new Guid("2c143ecc-7460-4c9d-99f5-4a3a4a1db639"),
                             Director = "Steven Lisberger",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt0084827",
@@ -218,7 +290,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bd4d287c-fd14-4451-9d83-8205a366a767"),
+                            Id = new Guid("c4d2f5c0-acd6-4dd1-b712-59e1715453f9"),
                             Director = "Joseph Kosinski",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt1104001",
@@ -229,7 +301,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("53e1236b-75b8-4336-9f4a-e6e600312030"),
+                            Id = new Guid("eb8df4ec-6712-4ab9-a625-a6bd83c1a7e5"),
                             Director = "David Fincher",
                             Genre = "Biography, Drama",
                             ImdbId = "tt1285016",
@@ -238,6 +310,201 @@ namespace BMDb.API.Migrations
                             Title = "The Social Network",
                             Year = "2010"
                         });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("BMDb.API.Models.Movie", b =>
+                {
+                    b.HasOne("BMDb.API.Models.AppUser", null)
+                        .WithMany("Movies")
+                        .HasForeignKey("AppUserId");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("BMDb.API.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("BMDb.API.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BMDb.API.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("BMDb.API.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BMDb.API.Models.AppUser", b =>
+                {
+                    b.Navigation("Movies");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,21 +1,19 @@
-using System;
-using System.Collections.Generic;
 using System.Text.Json;
-using System.Threading.Tasks;
 using AutoMapper;
 using BMDb.API.CustomFilters;
 using BMDb.API.Data;
 using BMDb.API.DTOs;
 using BMDb.API.Models;
 using BMDb.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace BMDb.API.Controllers;
 
 /// <summary>
 /// This class is used to define the MovieController class.
 /// </summary>
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class MovieController : ControllerBase
@@ -42,7 +40,6 @@ public class MovieController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    // [Authorize(Roles = "Reader")]
     public async Task<IActionResult> GetMoviesAsync([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
         [FromQuery] string? sortBy, [FromQuery] bool? isAscending,
         [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 100)
@@ -67,7 +64,6 @@ public class MovieController : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id:guid}")]
-    // [Authorize(Roles = "Reader")]
     public async Task<IActionResult> GetMovieById([FromRoute] Guid id)
         => Ok(_mapper.Map<MovieDto>(await _service.GetMovieByIdAsync(id)));
 
@@ -79,7 +75,6 @@ public class MovieController : ControllerBase
     /// <returns></returns>
     [HttpPost]
     [ValidateModel]
-    // [Authorize(Roles = "Writer")]
     public async Task<IActionResult> AddMovieAsync([FromBody] AddMovieRequestDto requestDto)
     {
         var movieModel = _mapper.Map<Movie>(requestDto);
@@ -101,7 +96,6 @@ public class MovieController : ControllerBase
     /// <returns></returns>
     [HttpPut("{id:guid}")]
     [ValidateModel]
-    // [Authorize(Roles = "Writer")]
     public async Task<IActionResult> UpdateMovieAsync([FromRoute] Guid id, [FromBody] UpdateMovieRequestDto request)
     {
         var movieModel = _mapper.Map<Movie>(request);
@@ -119,7 +113,6 @@ public class MovieController : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete("{id:guid}")]
-    // [Authorize(Roles = "Writer")]
     public async Task<IActionResult> DeleteMovieAsync([FromRoute] Guid id)
         => Ok(_mapper.Map<MovieDto>(await _service.DeleteMovieAsync(id)));
 
@@ -130,7 +123,6 @@ public class MovieController : ControllerBase
     /// <param name="title"></param>
     /// <returns></returns>
     [HttpGet("title/{title}")]
-    // [Authorize(Roles = "Reader")]
     public async Task<IActionResult> GetMovieByTitleAsync(string title)
         => Ok(await _service.GetMovieByTitleAsync(title));
 
@@ -141,7 +133,6 @@ public class MovieController : ControllerBase
     /// <param name="year"></param>
     /// <returns></returns>
     [HttpGet("year/{year}")]
-    // [Authorize(Roles = "Reader")]
     public async Task<IActionResult> GetMovieByYearAsync(string year)
         => Ok(await _service.GetMovieByYearAsync(year));
 
@@ -152,7 +143,6 @@ public class MovieController : ControllerBase
     /// <param name="director"></param>
     /// <returns></returns>
     [HttpGet("director/{director}")]
-    // [Authorize(Roles = "Reader")]
     public async Task<IActionResult> GetMovieByDirectorAsync(string director)
         => Ok(await _service.GetMovieByDirectorAsync(director));
 
@@ -163,7 +153,6 @@ public class MovieController : ControllerBase
     /// <param name="genre"></param>
     /// <returns></returns>
     [HttpGet("genre/{genre}")]
-    // [Authorize(Roles = "Reader")]
     public async Task<IActionResult> GetMovieByGenreAsync(string genre)
         => Ok(await _service.GetMovieByGenreAsync(genre));
 
@@ -175,4 +164,12 @@ public class MovieController : ControllerBase
     [HttpGet("imdb/{imdb}")]
     public async Task<IActionResult> GetMovieByImdbIdAsync(string imdb)
         => Ok(await _service.GetMovieByImdbIdAsync(imdb));
+
+    /// <summary>
+    /// This method is used to get the total count of movies.
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("count")]
+    public async Task<IActionResult> GetTotalCountAsync()
+        => Ok(await _service.GetTotalCountAsync());
 }

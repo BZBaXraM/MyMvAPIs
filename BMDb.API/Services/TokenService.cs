@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
+using BMDb.API.Auth;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BMDb.API.Services;
@@ -15,38 +11,41 @@ namespace BMDb.API.Services;
 /// </summary>
 public class TokenService : ITokenService
 {
-    private readonly IConfiguration _config;
+    private readonly JwtConfig _config;
 
     /// <summary>
-    /// Constructor for injecting IConfiguration.
+    /// Constructor
     /// </summary>
     /// <param name="config"></param>
-    public TokenService(IConfiguration config)
-        => _config = config;
+    public TokenService(JwtConfig config)
+    {
+        _config = config;
+    }
 
     /// <summary>
-    /// Creates a token for a user.
+    /// GenerateSecurityToken
     /// </summary>
-    /// <param name="user"></param>
+    /// <param name="email"></param>
     /// <param name="roles"></param>
+    /// <param name="userClaims"></param>
     /// <returns></returns>
-    public string CreateToken(IdentityUser user, IEnumerable<string> roles)
+    public string GenerateSecurityToken(string id, string email, IEnumerable<string> roles,
+        IEnumerable<Claim> userClaims)
     {
-        var claims = new List<Claim> { new(ClaimTypes.Email, user.Email) };
+        var claims = new[]
+        {
+            new Claim(ClaimsIdentity.DefaultNameClaimType, email),
+            new Claim(ClaimsIdentity.DefaultRoleClaimType, string.Join(",", roles)),
+            new Claim("userId", id)
+        }.Concat(userClaims);
 
-        claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+        SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(_config.Secret));
+        var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var token = new JwtSecurityToken(issuer: _config.Issuer,
+            audience: _config.Audience, expires: DateTime.UtcNow.AddMinutes(_config.Expiration), claims: claims,
+            signingCredentials: signingCredentials);
+        var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-        var signing = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        var token = new JwtSecurityToken(
-            _config["Jwt:Issuer"],
-            _config["Jwt:Audience"],
-            claims,
-            expires: DateTime.Now.AddMinutes(15),
-            signingCredentials: signing
-        );
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        return accessToken;
     }
 }
