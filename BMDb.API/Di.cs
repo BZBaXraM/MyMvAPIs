@@ -70,13 +70,17 @@ public static class Di
         {
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
         });
+        services.AddDbContext<AuthContext>(options =>
+        {
+            options.UseNpgsql(configuration.GetConnectionString("IdentityConnection"));
+        });
 
         services.AddScoped<IAsyncMovieService, MovieService>();
         services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblyContaining<RegisterRequestValidator>();
         services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
-        
+
         return services;
     }
 
@@ -91,7 +95,7 @@ public static class Di
     {
         services.AddScoped<IRequestUserProvider, RequestUserProvider>();
         services.AddIdentity<AppUser, IdentityRole>()
-            .AddEntityFrameworkStores<MovieContext>();
+            .AddEntityFrameworkStores<AuthContext>();
         services.AddScoped<ITokenService, TokenService>();
 
         JwtConfig jwtConfig = new();

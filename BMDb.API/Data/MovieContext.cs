@@ -1,13 +1,10 @@
 using BMDb.API.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BMDb.API.Data;
 
 /// <inheritdoc />
-public class MovieContext : IdentityDbContext<AppUser>
-
+public class MovieContext : DbContext
 {
     /// <inheritdoc />
     public MovieContext(DbContextOptions<MovieContext> options) : base(options)
@@ -17,19 +14,9 @@ public class MovieContext : IdentityDbContext<AppUser>
     ///<interitdoc />
     public virtual DbSet<Movie> Movies => Set<Movie>();
 
-    /// <summary>
-    ///     Users DbSet
-    /// </summary>
-    public override DbSet<AppUser> Users => Set<AppUser>();
-
-    /// <summary>
-    /// 
-    /// </summary>
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-        
         var movies = new List<Movie>
         {
             new()
