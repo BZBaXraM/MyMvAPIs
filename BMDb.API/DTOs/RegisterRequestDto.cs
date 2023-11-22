@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace BMDb.API.DTOs;
 
 /// <summary>
@@ -8,10 +10,12 @@ public class RegisterRequestDto
     /// <summary>
     /// This property is used to define the Username property.
     /// </summary>
-    public string Email { get; set; } = string.Empty;
+    [DataType(DataType.EmailAddress)]
+    public required string Email { get; init; } = string.Empty;
 
     /// <summary>
     /// This property is used to define the Password property.
     /// </summary>
-    public string Password { get; set; } = string.Empty;
+    [DataType(DataType.Password)]
+    public required string Password { get; init; } = string.Empty;
 }
