@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace BMDbMvcUI.Migrations
+namespace BMDb.MVC.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration

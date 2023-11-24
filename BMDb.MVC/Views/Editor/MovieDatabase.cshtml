@@ -14,6 +14,8 @@
         <th>Year</th>
         <th>Director</th>
         <th>Genre</th>
+        <th>Plot</th>
+        <th>IMDb Id</th>
         <th>Edit</th>
     </tr>
     </thead>
@@ -25,6 +27,8 @@
             <td class="table-success">@item.Year</td>
             <td class="table-danger">@item.Director</td>
             <td class="table-light">@item.Genre</td>
+            <td class="table-info">@item.Plot</td>
+            <td class="table-warning">@item.ImdbId</td>
             <td class="table-success">
                 <a asp-controller="Editor" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success form-control" id="cool-button-edit">Edit</a>
             </td>

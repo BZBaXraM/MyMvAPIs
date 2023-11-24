@@ -23,7 +23,8 @@ builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IAsyncMovieService, MovieService>();
 builder.Services.AddScoped<IAsyncEditorService, EditorService>();
 
-Log.Logger = new LoggerConfiguration()
+
+var logger = new LoggerConfiguration()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
     .Enrich.WithProcessName()
     .Enrich.WithThreadId()
@@ -36,11 +37,12 @@ Log.Logger = new LoggerConfiguration()
                                      "ProcessName: {ProcessName}" +
                                      "{Exception}" +
                                      "{NewLine}")
-    
     .CreateLogger();
 
+// builder.Logging.ClearProviders();
+// builder.Logging.AddSerilog(logger);
 
-builder.Host.UseSerilog();
+// builder.Host.UseSerilog();
 
 var app = builder.Build();
 
@@ -65,4 +67,4 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Movie}/{action=Index}/{id?}");
 
-app.Run();
+await app.RunAsync();

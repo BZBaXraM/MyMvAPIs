@@ -9,10 +9,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace BMDbMvcUI.Migrations
+namespace BMDb.MVC.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20230906194344_Initial")]
+    [Migration("20231124212803_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

@@ -16,7 +16,7 @@ public class MovieController : Controller
     {
         var movies = await _service.GetMoviesAsync();
         var count = movies.Count;
-        var data = movies.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+        var data = movies.Skip((page - 1) * pageSize).Take(pageSize).ToList();         
 
         var viewModel = new PaginationViewModel<MovieViewModel>(data, page, pageSize, count);
 

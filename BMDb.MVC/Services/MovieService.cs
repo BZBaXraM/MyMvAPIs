@@ -14,6 +14,7 @@ public class MovieService : IAsyncMovieService
     {
         var client = _httpClientFactory.CreateClient();
         var message = await client.GetAsync("https://localhost:7212/api/movie");
+        
         message.EnsureSuccessStatusCode();
         _movies.AddRange((await message.Content.ReadFromJsonAsync<IEnumerable<MovieViewModel>>())!);
 
@@ -26,6 +27,7 @@ public class MovieService : IAsyncMovieService
         if (search is null) return _movies;
         var response =
             await client.GetAsync($"https://localhost:7212/api/Movie/title/{Uri.EscapeDataString(search)}");
+        
         response.EnsureSuccessStatusCode();
         _movies.AddRange((await response.Content.ReadFromJsonAsync<IEnumerable<MovieViewModel>>())!);
 
