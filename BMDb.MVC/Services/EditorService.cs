@@ -7,15 +7,19 @@ namespace BMDb.MVC.Services;
 public class EditorService : IAsyncEditorService
 {
     private readonly IHttpClientFactory _client;
+    private readonly IAsyncJwtService _jwtService;
 
-    public EditorService(IHttpClientFactory client)
+    public EditorService(IHttpClientFactory client, IAsyncJwtService jwtService)
     {
         _client = client;
+        _jwtService = jwtService;
     }
 
     public async Task<MovieViewModel> AddMovieAsync(AddMovieViewModel model)
     {
         var client = _client.CreateClient();
+        var token = await _jwtService.GetAccessTokenAsync();
+        client.DefaultRequestHeaders.Authorization = new("Bearer", token);
         HttpRequestMessage requestMessage = new()
         {
             Method = HttpMethod.Post,
@@ -33,6 +37,8 @@ public class EditorService : IAsyncEditorService
     public async Task<MovieViewModel> EditMovieAsync(MovieViewModel model)
     {
         var client = _client.CreateClient();
+        var token = await _jwtService.GetAccessTokenAsync();
+        client.DefaultRequestHeaders.Authorization = new("Bearer", token);
         HttpRequestMessage requestMessage = new()
         {
             Method = HttpMethod.Put,
@@ -50,6 +56,8 @@ public class EditorService : IAsyncEditorService
     public async Task<MovieViewModel> EditMovieByIdAsync(Guid id)
     {
         var client = _client.CreateClient();
+        var token = await _jwtService.GetAccessTokenAsync();
+        client.DefaultRequestHeaders.Authorization = new("Bearer", token);
         var response =
             await client.GetFromJsonAsync<MovieViewModel>($"https://localhost:7212/api/movie/{id.ToString()}");
 
@@ -59,6 +67,8 @@ public class EditorService : IAsyncEditorService
     public async Task<MovieViewModel> DeleteMovieByIdAsync(MovieViewModel model)
     {
         var client = _client.CreateClient();
+        var token = await _jwtService.GetAccessTokenAsync();
+        client.DefaultRequestHeaders.Authorization = new("Bearer", token);
         HttpRequestMessage requestMessage = new()
         {
             Method = HttpMethod.Delete,
@@ -76,6 +86,8 @@ public class EditorService : IAsyncEditorService
     public async Task<List<MovieViewModel>> GetMoviesAsync()
     {
         var client = _client.CreateClient();
+        var token = await _jwtService.GetAccessTokenAsync();
+        client.DefaultRequestHeaders.Authorization = new("Bearer", token);
         var response = await client.GetFromJsonAsync<List<MovieViewModel>>("https://localhost:7212/api/movie");
 
         return response!;

@@ -15,11 +15,12 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AuthDbContext>().AddDefaultTokenProviders();
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
+builder.Services.AddSession();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IAsyncJwtService, JwtService>();
 builder.Services.AddScoped<IAsyncMovieService, MovieService>();
 builder.Services.AddScoped<IAsyncEditorService, EditorService>();
 
@@ -39,18 +40,13 @@ var logger = new LoggerConfiguration()
                                      "{NewLine}")
     .CreateLogger();
 
-// builder.Logging.ClearProviders();
-// builder.Logging.AddSerilog(logger);
-
-// builder.Host.UseSerilog();
+builder.Logging.AddSerilog(logger);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -58,6 +54,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();

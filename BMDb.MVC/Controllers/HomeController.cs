@@ -11,10 +11,9 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-
     public async Task<IActionResult> Index()
     {
-        return await Task.FromResult(RedirectToAction("SearchMovies", "Movie"));
+        return await Task.FromResult(RedirectToAction("Index", "Movie"));
     }
 
     public IActionResult Privacy()
