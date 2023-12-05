@@ -12,7 +12,7 @@ public class AuthContext : IdentityDbContext<AppUser>
     {
     }
     /// <summary>
-    /// 
+    /// Users DbSet
     /// </summary>
     public override DbSet<AppUser> Users => Set<AppUser>();
 }

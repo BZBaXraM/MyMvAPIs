@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace BMDb.API.DTOs;
 
 /// <summary>

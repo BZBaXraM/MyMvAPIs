@@ -8,11 +8,12 @@ namespace BMDb.API.Models;
 public class AppUser : IdentityUser
 {
     /// <summary>
-    /// This property is used to define the FirstName property.
+    /// This property is used to define the RefreshToken property.
     /// </summary>
     public string? RefreshToken { get; set; }
+
     /// <summary>
-    /// This property is used to define the FirstName property.
+    /// Movie collection.
     /// </summary>
     public ICollection<Movie> Movies { get; set; } = new List<Movie>();
 }

@@ -88,7 +88,7 @@ public class AuthController : ControllerBase
         var role = await _userManager.GetRolesAsync(user);
         var userClaims = await _userManager.GetClaimsAsync(user);
 
-        var accessToken = _service.GenerateSecurityToken(user.Id, user.UserName, role, userClaims);
+        var accessToken = _service.GenerateSecurityToken(user.Id, user.UserName!, role, userClaims);
         var refreshToken = Guid.NewGuid().ToString("N").ToLower();
         user.RefreshToken = refreshToken;
         await _userManager.UpdateAsync(user);
@@ -124,7 +124,7 @@ public class AuthController : ControllerBase
         var role = await _userManager.GetRolesAsync(user);
         var userClaims = await _userManager.GetClaimsAsync(user);
 
-        var accessToken = _service.GenerateSecurityToken(user.Id, user.UserName,
+        var accessToken = _service.GenerateSecurityToken(user.Id, user.UserName!,
             role, userClaims);
         var refreshToken = user.RefreshToken;
 
@@ -133,7 +133,7 @@ public class AuthController : ControllerBase
         return new AuthTokenDto
         {
             AccessToken = accessToken,
-            RefreshToken = refreshToken
+            RefreshToken = refreshToken!
         };
     }
 }

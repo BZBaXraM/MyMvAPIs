@@ -25,6 +25,7 @@ public static class Di
     /// AddRepositories method.
     /// </summary>
     /// <param name="services"></param>
+    /// <param name="configuration"></param>
     /// <returns></returns>
     public static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration configuration)
     {
