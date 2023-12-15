@@ -1,0 +1,25 @@
+@model BMDb.MVC.Models.MovieViewModel?
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "_Layout";
+}
+
+
+<br/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="@Model!.Poster" class="img-fluid" alt="Responsive image">
+        </div>
+        <div class="col-md-8">
+            <h3>@Model!.Title</h3>
+            <p>@Model!.Plot</p>
+        </div>
+
+    </div>
+</div>
+
+<br/>
+<br/>
+<a class="btn btn-outline-primary" href="@Url.Action("Index", "Movie")">Back to movie list</a>

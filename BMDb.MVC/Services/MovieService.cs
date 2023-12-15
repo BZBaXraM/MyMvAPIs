@@ -19,7 +19,7 @@ public class MovieService : IAsyncMovieService
     {
         var client = _httpClientFactory.CreateClient();
         var token = await _jwtService.GetAccessTokenAsync();
-        client.DefaultRequestHeaders.Authorization = new("Bearer", token);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         var message = await client.GetAsync("https://localhost:7212/api/movie");
 
         message.EnsureSuccessStatusCode();
@@ -32,7 +32,7 @@ public class MovieService : IAsyncMovieService
     {
         var client = _httpClientFactory.CreateClient();
         var token = await _jwtService.GetAccessTokenAsync();
-        client.DefaultRequestHeaders.Authorization = new("Bearer", token);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         if (search is null) return _movies;
         var response =
             await client.GetAsync($"https://localhost:7212/api/Movie/title/{Uri.EscapeDataString(search)}");
@@ -41,5 +41,17 @@ public class MovieService : IAsyncMovieService
         _movies.AddRange((await response.Content.ReadFromJsonAsync<IEnumerable<MovieViewModel>>())!);
 
         return _movies;
+    }
+
+    public async Task<MovieViewModel> GetMoviesDetailsAsync(Guid id)
+    {
+        var client = _httpClientFactory.CreateClient();
+        var token = await _jwtService.GetAccessTokenAsync();
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        var response = await client.GetAsync($"https://localhost:7212/api/Movie/{id}");
+
+        response.EnsureSuccessStatusCode();
+
+        return (await response.Content.ReadFromJsonAsync<MovieViewModel>())!;
     }
 }

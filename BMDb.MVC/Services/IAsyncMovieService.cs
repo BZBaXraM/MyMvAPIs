@@ -6,4 +6,5 @@ public interface IAsyncMovieService
 {
     Task<List<MovieViewModel>> GetMoviesAsync();
     Task<List<MovieViewModel>> SearchMoviesAsync(string? search);
+    Task<MovieViewModel> GetMoviesDetailsAsync(Guid id);
 }

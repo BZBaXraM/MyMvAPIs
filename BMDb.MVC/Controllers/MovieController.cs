@@ -8,6 +8,7 @@ namespace BMDb.MVC.Controllers;
 public class MovieController : Controller
 {
     private readonly IAsyncMovieService _service;
+
     public MovieController(IAsyncMovieService service)
     {
         _service = service;
@@ -34,7 +35,7 @@ public class MovieController : Controller
 
     [HttpPost]
     public async Task<IActionResult> SearchMoviesAsync(string? search)
-    { 
+    {
         var movies = await _service.SearchMoviesAsync(search);
         var count = movies.Count;
         var data = movies.ToList();
@@ -42,5 +43,12 @@ public class MovieController : Controller
         var viewModel = new PaginationViewModel<MovieViewModel>(data, 1, 100, count);
 
         return View("Index", viewModel);
+    }
+
+    public async Task<IActionResult> Details(Guid id)
+    {
+        var movie = await _service.GetMoviesDetailsAsync(id);
+
+        return View(movie);
     }
 }

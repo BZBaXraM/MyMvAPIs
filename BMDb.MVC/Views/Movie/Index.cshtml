@@ -14,10 +14,12 @@
             {
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
-                        @if (!string.IsNullOrEmpty(item.Title))
-                        {
-                            <img src="@item.Poster" class="card-img-top" alt="@item.Title Poster">
-                        }
+                        <a href="@Url.Action("Details", "Movie", new { id = item.Id })">
+                            @if (!string.IsNullOrEmpty(item.Title))
+                            {
+                                <img src="@item.Poster" class="card-img-top" alt="@item.Title Poster">
+                            }
+                        </a>
                         <div class="card-body">
                             <h3 class="card-title text-success">@item.Title</h3>
                             <p class="card-text">
