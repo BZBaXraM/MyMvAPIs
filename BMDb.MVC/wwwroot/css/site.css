@@ -86,13 +86,13 @@ h3.card-title {
 }
 
 .card-body {
-    padding: 10px;
-    position: absolute;
+    padding: 7px;
+    position: relative;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
+    text-align: center;
+    background: black;
 }
 
 .card-title {
