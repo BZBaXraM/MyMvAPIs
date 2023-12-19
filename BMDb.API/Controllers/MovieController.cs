@@ -1,8 +1,8 @@
 using System.Text.Json;
 using AutoMapper;
 using BMDb.API.CustomFilters;
-using BMDb.API.Data;
 using BMDb.API.DTOs;
+using BMDb.API.Entities;
 using BMDb.API.Models;
 using BMDb.API.Services;
 using Microsoft.AspNetCore.Authorization;

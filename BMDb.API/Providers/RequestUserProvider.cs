@@ -14,9 +14,8 @@ public class RequestUserProvider : IRequestUserProvider
     /// </summary>
     /// <param name="context"></param>
     public RequestUserProvider(IHttpContextAccessor context)
-    {
-        _context = context.HttpContext;
-    }
+        => _context = context.HttpContext;
+
 
     /// <summary>
     ///  This method is used to get the UserInfo.

@@ -1,4 +1,4 @@
-using BMDb.API.Data;
+using BMDb.API.Entities;
 using BMDb.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,13 +33,17 @@ public class MovieService : IAsyncMovieService
                 switch (filterOn)
                 {
                     case "title":
-                        return await _context.Movies.Where(x => x.Title.Contains(filterQuery)).ToListAsync();
+                        return await _context.Movies.Where(x => x.Title.Contains(filterQuery)).AsNoTracking()
+                            .ToListAsync();
                     case "year":
-                        return await _context.Movies.Where(x => x.Year.Contains(filterQuery)).ToListAsync();
+                        return await _context.Movies.Where(x => x.Year.Contains(filterQuery)).AsNoTracking()
+                            .ToListAsync();
                     case "director":
-                        return await _context.Movies.Where(x => x.Director.Contains(filterQuery)).ToListAsync();
+                        return await _context.Movies.Where(x => x.Director.Contains(filterQuery)).AsNoTracking()
+                            .ToListAsync();
                     case "genre":
-                        return await _context.Movies.Where(x => x.Genre.Contains(filterQuery)).ToListAsync();
+                        return await _context.Movies.Where(x => x.Genre.Contains(filterQuery)).AsNoTracking()
+                            .ToListAsync();
                 }
 
                 break;
@@ -55,20 +59,20 @@ public class MovieService : IAsyncMovieService
                 {
                     case "title":
                         return isAscending
-                            ? await _context.Movies.OrderBy(x => x.Title).ToListAsync()
-                            : await _context.Movies.OrderByDescending(x => x.Title).ToListAsync();
+                            ? await _context.Movies.OrderBy(x => x.Title).AsNoTracking().ToListAsync()
+                            : await _context.Movies.OrderByDescending(x => x.Title).AsNoTracking().ToListAsync();
                     case "year":
                         return isAscending
-                            ? await _context.Movies.OrderBy(x => x.Year).ToListAsync()
-                            : await _context.Movies.OrderByDescending(x => x.Year).ToListAsync();
+                            ? await _context.Movies.OrderBy(x => x.Year).AsNoTracking().ToListAsync()
+                            : await _context.Movies.OrderByDescending(x => x.Year).AsNoTracking().ToListAsync();
                     case "director":
                         return isAscending
-                            ? await _context.Movies.OrderBy(x => x.Director).ToListAsync()
-                            : await _context.Movies.OrderByDescending(x => x.Director).ToListAsync();
+                            ? await _context.Movies.OrderBy(x => x.Director).AsNoTracking().ToListAsync()
+                            : await _context.Movies.OrderByDescending(x => x.Director).AsNoTracking().ToListAsync();
                     case "genre":
                         return isAscending
-                            ? await _context.Movies.OrderBy(x => x.Genre).ToListAsync()
-                            : await _context.Movies.OrderByDescending(x => x.Genre).ToListAsync();
+                            ? await _context.Movies.OrderBy(x => x.Genre).AsNoTracking().ToListAsync()
+                            : await _context.Movies.OrderByDescending(x => x.Genre).AsNoTracking().ToListAsync();
                 }
 
                 break;
@@ -78,7 +82,7 @@ public class MovieService : IAsyncMovieService
         // Pagination
         var skip = (pageNumber - 1) * pageSize;
 
-        return await _context.Movies.Skip(skip).Take(pageSize).ToListAsync();
+        return await _context.Movies.Skip(skip).Take(pageSize).AsNoTracking().ToListAsync();
     }
 
     /// <summary>
@@ -162,9 +166,7 @@ public class MovieService : IAsyncMovieService
     /// <param name="title"></param>
     /// <returns></returns>
     public async Task<List<Movie>> GetMovieByTitleAsync(string title)
-    {
-        return await _context.Movies.Where(x => x.Title.Contains(title)).ToListAsync();
-    }
+        => await _context.Movies.Where(x => x.Title.Contains(title)).AsNoTracking().ToListAsync();
 
 
     /// <summary>
@@ -173,9 +175,8 @@ public class MovieService : IAsyncMovieService
     /// <param name="year"></param>
     /// <returns></returns>
     public async Task<IEnumerable<Movie>> GetMovieByYearAsync(string year)
-    {
-        return await _context.Movies.Where(x => x.Year == year).ToListAsync();
-    }
+        => await _context.Movies.Where(x => x.Year == year).AsNoTracking().ToListAsync();
+
 
     /// <summary>
     /// This method is used to get a movie by director.
@@ -183,9 +184,8 @@ public class MovieService : IAsyncMovieService
     /// <param name="director"></param>
     /// <returns></returns>
     public async Task<IEnumerable<Movie>> GetMovieByDirectorAsync(string director)
-    {
-        return await _context.Movies.Where(x => x.Director == director).ToListAsync();
-    }
+        => await _context.Movies.Where(x => x.Director == director).AsNoTracking().ToListAsync();
+
 
     /// <summary>
     /// This method is used to get a movie by genre.
@@ -193,9 +193,8 @@ public class MovieService : IAsyncMovieService
     /// <param name="genre"></param>
     /// <returns></returns>
     public async Task<IEnumerable<Movie>> GetMovieByGenreAsync(string genre)
-    {
-        return await _context.Movies.Where(x => x.Genre == genre).ToListAsync();
-    }
+        => await _context.Movies.Where(x => x.Genre == genre).AsNoTracking().ToListAsync();
+
 
     /// <summary>
     /// This method is used to get a movie by imdb id.
@@ -203,16 +202,13 @@ public class MovieService : IAsyncMovieService
     /// <param name="imdbId"></param>
     /// <returns></returns>
     public async Task<IEnumerable<Movie>> GetMovieByImdbIdAsync(string imdbId)
-    {
-        return await _context.Movies.Where(x => x.ImdbId == imdbId).ToListAsync();
-    }
+        => await _context.Movies.Where(x => x.ImdbId == imdbId).AsNoTracking().ToListAsync();
+
 
     /// <summary>
     /// This method is used to get the total count of movies.
     /// </summary>
     /// <returns></returns>
-    public async Task<int> GetTotalCountAsync()
-    {
-        return await _context.Movies.CountAsync();
-    }
+    public Task<int> GetTotalCountAsync()
+        => _context.Movies.CountAsync();
 }

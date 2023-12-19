@@ -18,9 +18,8 @@ public class TokenService : ITokenService
     /// </summary>
     /// <param name="config"></param>
     public TokenService(JwtConfig config)
-    {
-        _config = config;
-    }
+        => _config = config;
+
 
     /// <summary>
     /// GenerateSecurityToken

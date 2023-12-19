@@ -1,5 +1,5 @@
-using BMDb.API.Data;
 using BMDb.API.DTOs;
+using BMDb.API.Entities;
 using BMDb.API.Models;
 using BMDb.API.Services;
 using Microsoft.EntityFrameworkCore;

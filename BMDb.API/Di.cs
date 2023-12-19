@@ -1,7 +1,7 @@
 using System.Text;
 using BMDb.API.Auth;
-using BMDb.API.Data;
 using BMDb.API.DTOs.Validation;
+using BMDb.API.Entities;
 using BMDb.API.Mappings;
 using BMDb.API.Models;
 using BMDb.API.Providers;
@@ -62,7 +62,7 @@ public static class Di
                             Id = "Bearer",
                         }
                     },
-                    new string[] { }
+                    Array.Empty<string>()
                 }
             });
         });
@@ -131,7 +131,7 @@ public static class Di
             {
                 policy.RequireAuthenticatedUser();
                 // policy.RequireClaim("CanTest");
-                policy.Requirements.Add(new CanTestRequirment());
+                policy.Requirements.Add(new CanTestRequirement());
             });
         });
 

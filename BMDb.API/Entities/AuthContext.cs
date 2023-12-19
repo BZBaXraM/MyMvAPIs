@@ -2,7 +2,7 @@ using BMDb.API.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace BMDb.API.Data;
+namespace BMDb.API.Entities;
 
 /// <inheritdoc />
 public class AuthContext : IdentityDbContext<AppUser>

@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace BMDb.API.Auth;
 
 /// <summary>
-/// This class is used to define the CanTestRequirment class.
+/// This class is used to define the CanTestRequirement class.
 /// </summary>
-public class CanTestRequirment : IAuthorizationRequirement, IAuthorizationHandler
+public class CanTestRequirement : IAuthorizationRequirement, IAuthorizationHandler
 {
     /// <inheritdoc />
     [HttpGet]
