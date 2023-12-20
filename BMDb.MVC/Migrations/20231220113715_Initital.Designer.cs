@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BMDb.MVC.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20231124212803_Initial")]
-    partial class Initial
+    [Migration("20231220113715_Initital")]
+    partial class Initital
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
