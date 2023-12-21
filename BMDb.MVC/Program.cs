@@ -10,7 +10,7 @@ using Serilog.Events;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AuthDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("IdentityConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("AzureIdentityConnection")));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AuthDbContext>().AddDefaultTokenProviders();

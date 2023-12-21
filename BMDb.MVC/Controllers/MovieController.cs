@@ -1,4 +1,3 @@
-using System.Net.Http.Headers;
 using BMDb.MVC.Models;
 using BMDb.MVC.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +9,7 @@ public class MovieController : Controller
     private readonly IAsyncMovieService _service;
 
     public MovieController(IAsyncMovieService service)
-    {
-        _service = service;
-    }
+        => _service = service;
 
 
     [HttpGet]
