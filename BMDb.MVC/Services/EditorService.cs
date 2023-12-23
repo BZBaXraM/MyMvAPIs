@@ -23,8 +23,8 @@ public class EditorService : IAsyncEditorService
         HttpRequestMessage requestMessage = new()
         {
             Method = HttpMethod.Post,
-            // RequestUri = new Uri("https://localhost:7212/api/movie"),
-            RequestUri = new Uri("https://bmdb.azurewebsites.net/api/Movie"),
+            RequestUri = new Uri("https://localhost:7212/api/movie"),
+            // RequestUri = new Uri("https://bmdb.azurewebsites.net/api/Movie"),
             Content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json")
         };
 

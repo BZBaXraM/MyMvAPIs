@@ -23,6 +23,8 @@ builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IAsyncJwtService, JwtService>();
 builder.Services.AddScoped<IAsyncMovieService, MovieService>();
 builder.Services.AddScoped<IAsyncEditorService, EditorService>();
+builder.Services.AddScoped<IAsyncAzureJwtService, AzureJwtService>();
+builder.Services.AddScoped<IAsyncAzureMovieService, AzureMovieService>();
 
 
 var logger = new LoggerConfiguration()

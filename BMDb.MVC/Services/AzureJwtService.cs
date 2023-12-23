@@ -4,19 +4,18 @@ using BMDb.MVC.Data;
 
 namespace BMDb.MVC.Services;
 
-public class JwtService : IAsyncJwtService
+public class AzureJwtService : IAsyncAzureJwtService
 {
     private readonly IHttpClientFactory _httpClientFactory;
 
-    public JwtService(IHttpClientFactory httpClientFactory)
+    public AzureJwtService(IHttpClientFactory httpClientFactory)
         => _httpClientFactory = httpClientFactory;
 
 
     public async Task<string> GetAccessTokenAsync()
     {
         var client = _httpClientFactory.CreateClient();
-        var message = await client.PostAsync("https://localhost:7212/api/auth/login",
-        // var message = await client.PostAsync("https://bmdb.azurewebsites.net/api/auth/login",
+        var message = await client.PostAsync("https://bmdb.azurewebsites.net/api/auth/login",
             new StringContent(JsonSerializer.Serialize(new
             {
                 Email = "baxram1997007@gmail.com",
