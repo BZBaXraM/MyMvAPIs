@@ -1,5 +1,5 @@
 using BMDb.MVC.CustomService;
-using BMDb.MVC.Data;
+using BMDb.MVC.Entities;
 using BMDb.MVC.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -10,7 +10,7 @@ using Serilog.Events;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AuthDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("AzureIdentityConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("IdentityConnection")));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AuthDbContext>().AddDefaultTokenProviders();
@@ -23,8 +23,8 @@ builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IAsyncJwtService, JwtService>();
 builder.Services.AddScoped<IAsyncMovieService, MovieService>();
 builder.Services.AddScoped<IAsyncEditorService, EditorService>();
-builder.Services.AddScoped<IAsyncAzureJwtService, AzureJwtService>();
-builder.Services.AddScoped<IAsyncAzureMovieService, AzureMovieService>();
+// builder.Services.AddScoped<IAsyncAzureJwtService, AzureJwtService>();
+// builder.Services.AddScoped<IAsyncAzureMovieService, AzureMovieService>();
 
 
 var logger = new LoggerConfiguration()

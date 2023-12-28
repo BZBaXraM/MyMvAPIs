@@ -59,7 +59,7 @@ public static class Di
                         Reference = new OpenApiReference
                         {
                             Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer",
+                            Id = "Bearer"
                         }
                     },
                     Array.Empty<string>()
@@ -69,14 +69,23 @@ public static class Di
 
         services.AddDbContext<MovieContext>(options =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+            options.UseNpgsql(configuration.GetConnectionString("AzureConnection"));
         });
         services.AddDbContext<AuthContext>(options =>
         {
             options.UseNpgsql(configuration.GetConnectionString("IdentityConnection"));
         });
+        // services.AddDbContext<AzureMovieContext>(options =>
+        // {
+        //     options.UseNpgsql(configuration.GetConnectionString("AzureConnection"));
+        // });
+        // services.AddDbContext<AzureAuthContext>(options =>
+        // {
+        //     options.UseNpgsql(configuration.GetConnectionString("AzureIdentityConnection"));
+        // });
 
         services.AddScoped<IAsyncMovieService, MovieService>();
+        // services.AddScoped<IAsyncMovieService, AzureMovieService>();
         services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblyContaining<RegisterRequestValidator>();
@@ -130,7 +139,6 @@ public static class Di
             options.AddPolicy("CanTest", policy =>
             {
                 policy.RequireAuthenticatedUser();
-                // policy.RequireClaim("CanTest");
                 policy.Requirements.Add(new CanTestRequirement());
             });
         });

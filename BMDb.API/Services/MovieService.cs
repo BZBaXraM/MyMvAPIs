@@ -102,6 +102,7 @@ public class MovieService : IAsyncMovieService
             Genre = item.Genre,
             Plot = item.Plot,
             Poster = item.Poster,
+            Trailer = item.Trailer,
             ImdbId = item.ImdbId
         };
     }
@@ -139,6 +140,7 @@ public class MovieService : IAsyncMovieService
         update.Genre = movie.Genre;
         update.Plot = movie.Plot;
         update.Poster = movie.Poster;
+        update.Trailer = movie.Trailer;
         update.ImdbId = movie.ImdbId;
         await _context.SaveChangesAsync();
 

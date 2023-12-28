@@ -9,11 +9,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace BMDb.API.Migrations.Movie
+namespace BMDb.API.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20231226194459_InititalMovie")]
-    partial class InititalMovie
+    [Migration("20231227121842_AzureDB")]
+    partial class AzureDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,7 +67,7 @@ namespace BMDb.API.Migrations.Movie
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5ec28958-08d4-4175-9eaf-8ba6c2c24f00"),
+                            Id = new Guid("e90d7aa0-0adf-4116-becb-abc93ac5b19f"),
                             Director = "Frank Darabont",
                             Genre = "Drama",
                             ImdbId = "tt0111161",
@@ -79,7 +79,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("73300b2c-6290-4e27-8aa7-aaf30574f8eb"),
+                            Id = new Guid("7709903a-eecc-474c-b560-735916c74f87"),
                             Director = "Francis Ford Coppola",
                             Genre = "Crime, Drama",
                             ImdbId = "tt0068646",
@@ -90,7 +90,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("ee36b9e8-67f1-40c0-b75d-72bfdd557a7a"),
+                            Id = new Guid("319b398a-ee37-4053-91bd-cd9cb9a84f23"),
                             Director = "Christopher Nolan",
                             Genre = "Action, Crime, Drama",
                             ImdbId = "tt0468569",
@@ -101,7 +101,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("3cf378bf-d72e-444a-81dd-182bc679ee32"),
+                            Id = new Guid("a9475b32-b711-4479-a411-aa4009f0d98c"),
                             Director = "Christopher Nolan",
                             Genre = "Action, Adventure",
                             ImdbId = "tt1345836",
@@ -112,7 +112,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("5f530357-02e5-42f0-88fa-1333a3ee69d8"),
+                            Id = new Guid("b48f7e52-1a9b-46fc-9ce6-f9d8cae81040"),
                             Director = "Francis Ford Coppola",
                             Genre = "Crime, Drama",
                             ImdbId = "tt0071562",
@@ -123,7 +123,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("d60a560e-8acc-469e-9321-2cd7578679a3"),
+                            Id = new Guid("6d9ee6ee-a5d9-4b20-8f60-680df551885f"),
                             Director = "Quentin Tarantino",
                             Genre = "Crime, Drama",
                             ImdbId = "tt0110912",
@@ -134,7 +134,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("33f10a02-a1bc-48ff-9222-84dfc36e308d"),
+                            Id = new Guid("25c66f55-7060-4979-ba2d-50c9c9d842f0"),
                             Director = "Steven Spielberg",
                             Genre = "Biography, Drama, History",
                             ImdbId = "tt0108052",
@@ -145,7 +145,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("2d38e21f-fe27-4d63-9160-84f3498ae6ec"),
+                            Id = new Guid("34b4b113-a8d3-4595-b1aa-13b520bc9da2"),
                             Director = "David Fincher",
                             Genre = "Drama",
                             ImdbId = "tt0137523",
@@ -156,7 +156,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("b6582e6c-1048-4959-8c55-7f29942c9167"),
+                            Id = new Guid("6f44aba9-d495-4ed2-86b8-818dea323117"),
                             Director = "Lana Wachowski, Lilly Wachowski",
                             Genre = "Action, Sci-Fi",
                             ImdbId = "tt0133093",
@@ -167,7 +167,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("990e93cc-5ce6-4ce4-959c-7a72603d3a31"),
+                            Id = new Guid("bc0f11a5-349d-4a3e-be73-630d506844b4"),
                             Director = "Martin Scorsese",
                             Genre = "Biography, Crime, Drama",
                             ImdbId = "tt0099685",
@@ -178,7 +178,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("acb12341-aba4-4ad4-98b4-d613af01f3cf"),
+                            Id = new Guid("e34e8b1a-71dc-491f-9cad-a66e7ffab252"),
                             Director = "Sam Raimi",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt0145487",
@@ -189,7 +189,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("fed8ffef-e1d0-4b07-a909-11c2d530470b"),
+                            Id = new Guid("07716b7a-0c6c-47d4-8ed1-e7f964c9b94a"),
                             Director = "Sam Raimi",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt0316654",
@@ -200,7 +200,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("2ef15bbc-2cc2-4d7b-aaad-5a1dd0a35cfe"),
+                            Id = new Guid("bf14aa88-5817-41ee-b01f-e2f2d94e7d78"),
                             Director = "Sam Raimi",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt0413300",
@@ -211,7 +211,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("12f957e0-e390-43d0-9208-0817090cc7c4"),
+                            Id = new Guid("f8407d10-5db6-4003-a38e-5b149b6fe094"),
                             Director = "Steven Lisberger",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt0084827",
@@ -222,7 +222,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("a9da6f4a-63cb-4bf9-97ff-3fa1a0b4f45a"),
+                            Id = new Guid("b8a53065-9e0a-4b4e-9ab9-90df2ccc70ea"),
                             Director = "Joseph Kosinski",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt1104001",
@@ -233,7 +233,7 @@ namespace BMDb.API.Migrations.Movie
                         },
                         new
                         {
-                            Id = new Guid("32a127bd-38ad-483c-b249-5311c07cd898"),
+                            Id = new Guid("9abc0227-7517-45ce-a3ae-b9dfc7cd9514"),
                             Director = "David Fincher",
                             Genre = "Biography, Drama",
                             ImdbId = "tt1285016",

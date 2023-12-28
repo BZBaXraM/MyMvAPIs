@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using BMDb.MVC.Models;
 
 namespace BMDb.MVC.Services;
@@ -47,14 +48,15 @@ public class AzureMovieService : IAsyncAzureMovieService
         return searchResults?.ToList() ?? new List<MovieViewModel>();
     }
 
-    public async Task<int> GetTotalCountAsync()
+    public async Task<MovieViewModel> GetMoviesDetailsAsync(Guid id)
     {
         var client = _httpClientFactory.CreateClient();
         var token = await _jwtService.GetAccessTokenAsync();
-        client.DefaultRequestHeaders.Authorization = new("Bearer", token);
-        var response = await client.GetAsync("https://bmdb.azurewebsites.net/api/Movie/count");
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        var response = await client.GetAsync($"https://bmdb.azurewebsites.net/api/Movie/{id}");
+
         response.EnsureSuccessStatusCode();
 
-        return await response.Content.ReadFromJsonAsync<int>();
+        return (await response.Content.ReadFromJsonAsync<MovieViewModel>())!;
     }
 }

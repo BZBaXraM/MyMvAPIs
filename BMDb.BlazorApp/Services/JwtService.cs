@@ -16,6 +16,7 @@ public class JwtService : IAsyncJwtService
     {
         var client = _httpClientFactory.CreateClient();
         var message = await client.PostAsync("https://localhost:7212/api/auth/login",
+        // var message = await client.PostAsync("https://bmdb.azurewebsites.net/api/auth/login",
             new StringContent(JsonSerializer.Serialize(new
             {
                 Email = "baxram1997007@gmail.com",

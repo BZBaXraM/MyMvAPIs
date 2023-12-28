@@ -15,6 +15,10 @@ public class AddMovieRequestDto
     /// This property is used to define the Poster property.
     /// </summary>
     public string? Poster { get; set; }
+    /// <summary>
+    /// This property is used to define the Trailer property.
+    /// </summary>
+    public string? Trailer { get; set; }
 
     /// <summary>
     /// This property is used to define the Year property.

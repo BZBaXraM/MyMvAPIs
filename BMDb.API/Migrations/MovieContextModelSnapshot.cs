@@ -64,7 +64,7 @@ namespace BMDb.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ec2d53a5-db9b-46f4-8692-197773266d01"),
+                            Id = new Guid("e90d7aa0-0adf-4116-becb-abc93ac5b19f"),
                             Director = "Frank Darabont",
                             Genre = "Drama",
                             ImdbId = "tt0111161",
@@ -76,7 +76,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8ff3bd62-7409-4650-a37e-901b69c8a0db"),
+                            Id = new Guid("7709903a-eecc-474c-b560-735916c74f87"),
                             Director = "Francis Ford Coppola",
                             Genre = "Crime, Drama",
                             ImdbId = "tt0068646",
@@ -87,7 +87,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("fd8386fa-ec85-498d-b6f8-142ea615f659"),
+                            Id = new Guid("319b398a-ee37-4053-91bd-cd9cb9a84f23"),
                             Director = "Christopher Nolan",
                             Genre = "Action, Crime, Drama",
                             ImdbId = "tt0468569",
@@ -98,7 +98,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("540b066a-2f6a-4e78-a6f1-88bcf1df692d"),
+                            Id = new Guid("a9475b32-b711-4479-a411-aa4009f0d98c"),
                             Director = "Christopher Nolan",
                             Genre = "Action, Adventure",
                             ImdbId = "tt1345836",
@@ -109,7 +109,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2fd4b3b3-0059-485c-ba3b-e8e5e52d150d"),
+                            Id = new Guid("b48f7e52-1a9b-46fc-9ce6-f9d8cae81040"),
                             Director = "Francis Ford Coppola",
                             Genre = "Crime, Drama",
                             ImdbId = "tt0071562",
@@ -120,7 +120,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8209fa96-e1fd-4b2c-a23d-94335c415f75"),
+                            Id = new Guid("6d9ee6ee-a5d9-4b20-8f60-680df551885f"),
                             Director = "Quentin Tarantino",
                             Genre = "Crime, Drama",
                             ImdbId = "tt0110912",
@@ -131,7 +131,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("18778695-5bb2-4e3a-a738-0046dd598266"),
+                            Id = new Guid("25c66f55-7060-4979-ba2d-50c9c9d842f0"),
                             Director = "Steven Spielberg",
                             Genre = "Biography, Drama, History",
                             ImdbId = "tt0108052",
@@ -142,7 +142,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cc6d753e-074f-4a33-9b44-20d1ea33c4a0"),
+                            Id = new Guid("34b4b113-a8d3-4595-b1aa-13b520bc9da2"),
                             Director = "David Fincher",
                             Genre = "Drama",
                             ImdbId = "tt0137523",
@@ -153,7 +153,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6af3967a-960e-4dac-83b5-6ad572ca4a43"),
+                            Id = new Guid("6f44aba9-d495-4ed2-86b8-818dea323117"),
                             Director = "Lana Wachowski, Lilly Wachowski",
                             Genre = "Action, Sci-Fi",
                             ImdbId = "tt0133093",
@@ -164,7 +164,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6f354a41-bd4d-4dcf-b72b-13405a3c498f"),
+                            Id = new Guid("bc0f11a5-349d-4a3e-be73-630d506844b4"),
                             Director = "Martin Scorsese",
                             Genre = "Biography, Crime, Drama",
                             ImdbId = "tt0099685",
@@ -175,7 +175,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("021bc73f-0306-4a52-8cb8-80f797ed154c"),
+                            Id = new Guid("e34e8b1a-71dc-491f-9cad-a66e7ffab252"),
                             Director = "Sam Raimi",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt0145487",
@@ -186,7 +186,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bb84d612-7d04-456a-bafe-9e1bacf803e1"),
+                            Id = new Guid("07716b7a-0c6c-47d4-8ed1-e7f964c9b94a"),
                             Director = "Sam Raimi",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt0316654",
@@ -197,7 +197,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("44f71833-9e80-4810-b276-ef0c4c6e5d40"),
+                            Id = new Guid("bf14aa88-5817-41ee-b01f-e2f2d94e7d78"),
                             Director = "Sam Raimi",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt0413300",
@@ -208,7 +208,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a9e4c4f1-ab85-4e06-8ad5-84618be7d8df"),
+                            Id = new Guid("f8407d10-5db6-4003-a38e-5b149b6fe094"),
                             Director = "Steven Lisberger",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt0084827",
@@ -219,7 +219,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("791c4b84-16ea-458e-b0bb-b883dbec1a53"),
+                            Id = new Guid("b8a53065-9e0a-4b4e-9ab9-90df2ccc70ea"),
                             Director = "Joseph Kosinski",
                             Genre = "Action, Adventure, Sci-Fi",
                             ImdbId = "tt1104001",
@@ -230,7 +230,7 @@ namespace BMDb.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8618adcf-b772-42b8-a4c7-3d8903ec6ed4"),
+                            Id = new Guid("9abc0227-7517-45ce-a3ae-b9dfc7cd9514"),
                             Director = "David Fincher",
                             Genre = "Biography, Drama",
                             ImdbId = "tt1285016",

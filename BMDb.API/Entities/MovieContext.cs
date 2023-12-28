@@ -31,6 +31,7 @@ public class MovieContext : DbContext
                 Genre = "Drama",
                 Poster =
                     "https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_SX300.jpg",
+                Trailer = "https://bmdb.blob.core.windows.net/test/videoplayback.mp4",
                 Plot =
                     "Over the course of several years, two convicts form a friendship, seeking consolation and, eventually, redemption through basic compassion.",
                 ImdbId = "tt0111161"

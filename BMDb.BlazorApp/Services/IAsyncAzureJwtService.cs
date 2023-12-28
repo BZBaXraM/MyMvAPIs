@@ -1,6 +1,6 @@
 namespace BMDb.BlazorApp.Services;
 
-public class IAsyncAzureJwtService
+public interface IAsyncAzureJwtService
 {
-    
+    Task<string> GetAccessTokenAsync();
 }

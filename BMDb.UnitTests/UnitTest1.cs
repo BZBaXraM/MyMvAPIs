@@ -32,8 +32,10 @@ public class UnitTest1
             Director = "Serdar Akar",
             Genre = "Action",
             Poster = null,
+            Trailer = null,
             Title = "Kurtlar Vadisi Irak",
-            Year = "2006"
+            Year = "2006",
+            Plot = null
         };
 
         Movie movie = new()
@@ -41,8 +43,10 @@ public class UnitTest1
             Director = "Serdar Akar",
             Genre = "Action",
             Poster = null,
+            Trailer = null,
             Title = "Kurtlar Vadisi Irak",
             Year = "2006",
+            Plot = null,
             Id = Guid.NewGuid()
         };
 
@@ -62,7 +66,9 @@ public class UnitTest1
         Assert.Equal(movie.Director, addedMovie.Director);
         Assert.Equal(movie.Genre, addedMovie.Genre);
         Assert.Equal(movie.Poster, addedMovie.Poster);
+        Assert.Equal(movie.Trailer, addedMovie.Trailer);
         Assert.Equal(movie.Title, addedMovie.Title);
         Assert.Equal(movie.Year, addedMovie.Year);
+        Assert.Equal(movie.Plot, addedMovie.Plot);
     }
 }

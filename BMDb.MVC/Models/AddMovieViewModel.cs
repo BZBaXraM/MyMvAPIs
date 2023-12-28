@@ -8,5 +8,6 @@ public class AddMovieViewModel
     public string Director { get; set; } = string.Empty;
     public string Genre { get; set; } = string.Empty;
     public string? Plot { get; set; }
+    public string? Trailer { get; set; }
     public string ImdbId { get; set; } = string.Empty;
 }

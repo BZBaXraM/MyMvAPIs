@@ -2,13 +2,13 @@ using BMDb.BlazorApp.Models;
 
 namespace BMDb.BlazorApp.Services;
 
-public class AsyncAzureMovieService : IAsyncAzureMovieService
+public class AzureMovieService : IAsyncAzureMovieService
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IAsyncAzureJwtService _jwtService;
     private readonly List<MovieModel> _movies = new();
 
-    public AsyncAzureMovieService(IHttpClientFactory httpClientFactory, IAsyncAzureJwtService jwtService)
+    public AzureMovieService(IHttpClientFactory httpClientFactory, IAsyncAzureJwtService jwtService)
     {
         _httpClientFactory = httpClientFactory;
         _jwtService = jwtService;
