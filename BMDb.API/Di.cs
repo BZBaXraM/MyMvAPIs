@@ -69,20 +69,12 @@ public static class Di
 
         services.AddDbContext<MovieContext>(options =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("AzureConnection"));
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
         });
         services.AddDbContext<AuthContext>(options =>
         {
             options.UseNpgsql(configuration.GetConnectionString("IdentityConnection"));
         });
-        // services.AddDbContext<AzureMovieContext>(options =>
-        // {
-        //     options.UseNpgsql(configuration.GetConnectionString("AzureConnection"));
-        // });
-        // services.AddDbContext<AzureAuthContext>(options =>
-        // {
-        //     options.UseNpgsql(configuration.GetConnectionString("AzureIdentityConnection"));
-        // });
 
         services.AddScoped<IAsyncMovieService, MovieService>();
         // services.AddScoped<IAsyncMovieService, AzureMovieService>();
