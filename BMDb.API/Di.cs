@@ -77,7 +77,6 @@ public static class Di
         });
 
         services.AddScoped<IAsyncMovieService, MovieService>();
-        // services.AddScoped<IAsyncMovieService, AzureMovieService>();
         services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblyContaining<RegisterRequestValidator>();
