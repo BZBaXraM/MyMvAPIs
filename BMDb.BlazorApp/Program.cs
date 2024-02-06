@@ -7,9 +7,6 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IAsyncJwtService, JwtService>();
 builder.Services.AddScoped<IAsyncMovieService, MovieService>();
-builder.Services.AddScoped<IAsyncAzureJwtService, AzureJwtService>();
-builder.Services.AddScoped<IAsyncAzureMovieService, AzureMovieService>();
-
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

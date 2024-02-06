@@ -26,9 +26,8 @@ public class MovieController : Controller
 
 
     public async Task<IActionResult> SearchMoviesAsync()
-    {
-        return await Task.FromResult<IActionResult>(View());
-    }
+        => await Task.FromResult<IActionResult>(View());
+
 
     [HttpPost]
     public async Task<IActionResult> SearchMoviesAsync(string? search)

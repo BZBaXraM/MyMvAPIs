@@ -20,7 +20,7 @@ public class MovieService : IAsyncMovieService
         var client = _httpClientFactory.CreateClient();
         var token = await _jwtService.GetAccessTokenAsync();
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        var message = await client.GetAsync("https://localhost:7212/api/movie");
+        var message = await client.GetAsync("https://localhost:7212/api/Movie");
         // var message = await client.GetAsync("https://bmdb.azurewebsites.net/api/Movie");
 
         message.EnsureSuccessStatusCode();

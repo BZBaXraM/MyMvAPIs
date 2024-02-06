@@ -24,7 +24,6 @@ public class EditorService : IAsyncEditorService
         {
             Method = HttpMethod.Post,
             RequestUri = new Uri("https://localhost:7212/api/movie"),
-            // RequestUri = new Uri("https://bmdb.azurewebsites.net/api/Movie"),
             Content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json")
         };
 
@@ -75,7 +74,6 @@ public class EditorService : IAsyncEditorService
         {
             Method = HttpMethod.Delete,
             RequestUri = new Uri($"https://localhost:7212/api/movie/{model.Id}"),
-            // RequestUri = new Uri($"https://bmdb.azurewebsites.net/api/Movie/{model.Id}"),
             Content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json")
         };
 
@@ -92,7 +90,6 @@ public class EditorService : IAsyncEditorService
         var token = await _jwtService.GetAccessTokenAsync();
         client.DefaultRequestHeaders.Authorization = new("Bearer", token);
         var response = await client.GetFromJsonAsync<List<MovieViewModel>>("https://localhost:7212/api/movie");
-        // var response = await client.GetFromJsonAsync<List<MovieViewModel>>("https://bmdb.azurewebsites.net/api/Movie");
 
         return response!;
     }

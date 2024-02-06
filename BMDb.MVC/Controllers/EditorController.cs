@@ -12,20 +12,17 @@ public class EditorController : Controller
     private readonly IAsyncEditorService _service;
 
     public EditorController(IAsyncEditorService service)
-    {
-        _service = service;
-    }
+        => _service = service;
+
 
     public async Task<IActionResult> Index()
-    {
-        return await Task.FromResult<IActionResult>(RedirectToAction("Index", "Movie"));
-    }
+        => await Task.FromResult<IActionResult>(RedirectToAction("Index", "Movie"));
+
 
     [HttpGet]
     public async Task<IActionResult> Add()
-    {
-        return await Task.FromResult<IActionResult>(View());
-    }
+        => await Task.FromResult<IActionResult>(View());
+
 
     [HttpPost]
     public async Task<IActionResult> Add(AddMovieViewModel model)
