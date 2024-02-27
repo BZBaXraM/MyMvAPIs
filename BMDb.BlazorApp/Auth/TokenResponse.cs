@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace BMDb.BlazorApp.Data;
+namespace BMDb.BlazorApp.Auth;
 
 public class TokenResponse
 {

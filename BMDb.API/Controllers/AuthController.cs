@@ -41,7 +41,7 @@ public class AuthController : ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost("register")]
-    public async Task<ActionResult<AuthTokenDto>> Register([FromBody] RegisterRequestDto request)
+    public async Task<ActionResult<LoginResponseDto>> Register([FromBody] RegisterRequestDto request)
     {
         var existingUser = await _userManager.FindByEmailAsync(request.Email);
         if (existingUser is not null)
@@ -71,7 +71,7 @@ public class AuthController : ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost("login")]
-    public async Task<ActionResult<AuthTokenDto>> Login([FromBody] LoginRequestDto request)
+    public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto request)
     {
         var user = await _userManager.FindByEmailAsync(request.Email);
         if (user is null)
@@ -93,7 +93,7 @@ public class AuthController : ControllerBase
         user.RefreshToken = refreshToken;
         await _userManager.UpdateAsync(user);
 
-        return new AuthTokenDto
+        return new LoginResponseDto
         {
             AccessToken = accessToken,
             RefreshToken = refreshToken
@@ -106,7 +106,7 @@ public class AuthController : ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost("refresh")]
-    public async Task<ActionResult<AuthTokenDto>> Refresh(
+    public async Task<ActionResult<LoginResponseDto>> Refresh(
         [FromBody] RefreshTokenRequest request)
     {
         var user = await _userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == request.RefreshToken);
@@ -119,7 +119,7 @@ public class AuthController : ControllerBase
     }
 
 
-    private async Task<AuthTokenDto> GenerateToken(AppUser user)
+    private async Task<LoginResponseDto> GenerateToken(AppUser user)
     {
         var role = await _userManager.GetRolesAsync(user);
         var userClaims = await _userManager.GetClaimsAsync(user);
@@ -130,7 +130,7 @@ public class AuthController : ControllerBase
 
         await _userManager.UpdateAsync(user);
 
-        return new AuthTokenDto
+        return new LoginResponseDto
         {
             AccessToken = accessToken,
             RefreshToken = refreshToken!
