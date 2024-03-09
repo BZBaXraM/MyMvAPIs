@@ -96,9 +96,11 @@ public class MovieService : IAsyncMovieService
     public async Task<Movie?> GetMovieByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var item = await _context.Movies.FindAsync(id, cancellationToken);
+        if (item is null) return null!;
+        
         return new Movie
         {
-            Id = item!.Id,
+            Id = item.Id,
             Title = item.Title,
             Year = item.Year,
             Director = item.Director,

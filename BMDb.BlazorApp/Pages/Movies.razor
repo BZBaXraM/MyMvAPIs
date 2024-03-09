@@ -15,7 +15,6 @@ else
 {
     <div class="container pt-5">
         <div class="row">
-
             @foreach (var item in _pagination!.Items)
             {
                 <div class="col-md-4 mb-4">
@@ -38,18 +37,17 @@ else
                     </div>
                 </div>
             }
-
         </div>
     </div>
 
     <div class="pagination">
-        @if (_pagination.HasNextPage)
-        {
-            <a class="btn btn-custom" @onclick="@(async () => await NextPage())">Next</a>
-        }
         @if (_pagination.HasPreviousPage)
         {
             <a class="btn btn-custom" @onclick="@(async () => await PreviousPage())">Previous</a>
+        }
+        @if (_pagination.HasNextPage)
+        {
+            <a class="btn btn-custom" @onclick="@(async () => await NextPage())">Next</a>
         }
     </div>
 }

@@ -1,4 +1,3 @@
-using BMDb.API.DTOs;
 using BMDb.API.Entities;
 using BMDb.API.Models;
 using BMDb.API.Services;
@@ -26,18 +25,6 @@ public class UnitTest1
     [Fact]
     public async Task Add_Movie_Test()
     {
-        // Arrange
-        AddMovieRequestDto requestDto = new()
-        {
-            Director = "Serdar Akar",
-            Genre = "Action",
-            Poster = null,
-            Trailer = null,
-            Title = "Kurtlar Vadisi Irak",
-            Year = "2006",
-            Plot = null
-        };
-
         Movie movie = new()
         {
             Director = "Serdar Akar",
@@ -89,7 +76,7 @@ public class UnitTest1
                 Plot = null,
                 Id = Guid.NewGuid()
             },
-            new Movie
+            new()
             {
                 Director = "Serdar Akar",
                 Genre = "Action",
@@ -116,5 +103,52 @@ public class UnitTest1
         // Assert
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
+    }
+
+    [Fact]
+    public async Task Delete_Movie_By_Id_Test()
+    {
+        // Arrange
+        var movieId = Guid.NewGuid();
+        var movies = new List<Movie>
+        {
+            new()
+            {
+                Director = "Serdar Akar",
+                Genre = "Action",
+                Poster = null,
+                Trailer = null,
+                Title = "Kurtlar Vadisi Irak",
+                Year = "2006",
+                Plot = null,
+                Id = movieId
+            },
+            new()
+            {
+                Director = "Serdar Akar",
+                Genre = "Action",
+                Poster = null,
+                Trailer = null,
+                Title = "Kurtlar Vadisi Irak",
+                Year = "2006",
+                Plot = null,
+                Id = Guid.NewGuid()
+            }
+        };
+
+        var dbContextMock = new DbContextMock<MovieContext>(
+            new DbContextOptionsBuilder<MovieContext>().Options
+        );
+
+        dbContextMock.CreateDbSetMock(x => x.Movies, movies);
+
+        var movieService = new MovieService(dbContextMock.Object);
+
+        // Act
+        await movieService.DeleteMovieAsync(movieId);
+
+        // Assert
+        var deletedMovie = await movieService.GetMovieByIdAsync(movieId);
+        Assert.Null(deletedMovie);
     }
 }
