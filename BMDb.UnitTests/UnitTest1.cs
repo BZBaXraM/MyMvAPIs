@@ -43,11 +43,8 @@ public class UnitTest1
 
         dbContextMock.CreateDbSetMock(x => x.Movies, new List<Movie>());
 
-
-        // Act
         var addedMovie = await _movieService.AddMovieAsync(movie);
 
-        // Assert
         Assert.NotNull(addedMovie);
         Assert.Equal(movie.Id, addedMovie.Id);
         Assert.Equal(movie.Director, addedMovie.Director);
@@ -62,7 +59,6 @@ public class UnitTest1
     [Fact]
     public async Task Get_Movies_Test()
     {
-        // Arrange
         var movies = new List<Movie>
         {
             new()
@@ -97,10 +93,8 @@ public class UnitTest1
 
         var movieService = new MovieService(dbContextMock.Object);
 
-        // Act
         var result = await movieService.GetMoviesAsync("1", "10", "title");
 
-        // Assert
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
     }
@@ -108,7 +102,6 @@ public class UnitTest1
     [Fact]
     public async Task Delete_Movie_By_Id_Test()
     {
-        // Arrange
         var movieId = Guid.NewGuid();
         var movies = new List<Movie>
         {
@@ -144,10 +137,8 @@ public class UnitTest1
 
         var movieService = new MovieService(dbContextMock.Object);
 
-        // Act
         await movieService.DeleteMovieAsync(movieId);
 
-        // Assert
         var deletedMovie = await movieService.GetMovieByIdAsync(movieId);
         Assert.Null(deletedMovie);
     }
