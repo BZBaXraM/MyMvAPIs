@@ -21,7 +21,6 @@ public class MovieService : IAsyncMovieService
         var token = await _jwtService.GetAccessTokenAsync();
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         var message = await client.GetAsync("https://localhost:7212/api/Movie");
-        // var message = await client.GetAsync("https://bmdb.azurewebsites.net/api/Movie");
 
         message.EnsureSuccessStatusCode();
         _movies.AddRange((await message.Content.ReadFromJsonAsync<IEnumerable<MovieViewModel>>())!);
@@ -37,8 +36,7 @@ public class MovieService : IAsyncMovieService
         if (search is null) return _movies;
         var response =
             await client.GetAsync($"https://localhost:7212/api/Movie/title/{Uri.EscapeDataString(search)}");
-        // var response =
-        //     await client.GetAsync($"https://bmdb.azurewebsites.net/api/Movie/title/{Uri.EscapeDataString(search)}");
+
 
         response.EnsureSuccessStatusCode();
         _movies.AddRange((await response.Content.ReadFromJsonAsync<IEnumerable<MovieViewModel>>())!);
@@ -52,7 +50,6 @@ public class MovieService : IAsyncMovieService
         var token = await _jwtService.GetAccessTokenAsync();
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         var response = await client.GetAsync($"https://localhost:7212/api/Movie/{id}");
-        // var response = await client.GetAsync($"https://bmdb.azurewebsites.net/api/Movie/{id}");
 
         response.EnsureSuccessStatusCode();
 

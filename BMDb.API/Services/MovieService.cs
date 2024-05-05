@@ -1,6 +1,9 @@
 using BMDb.API.Entities;
 using BMDb.API.Models;
 using Microsoft.EntityFrameworkCore;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 
 namespace BMDb.API.Services;
 
@@ -97,7 +100,7 @@ public class MovieService : IAsyncMovieService
     {
         var item = await _context.Movies.FindAsync(id, cancellationToken);
         if (item is null) return null!;
-        
+
         return new Movie
         {
             Id = item.Id,
@@ -232,4 +235,58 @@ public class MovieService : IAsyncMovieService
     /// <returns></returns>
     public Task<int> GetTotalCountAsync()
         => _context.Movies.CountAsync();
+
+    /// <summary>
+    /// This method is used to download a pdf.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<string> DownloadPdfAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        var movie = await _context.Movies.FindAsync(new object?[] { id }, cancellationToken);
+
+        if (movie == null)
+        {
+            // Handle case where movie is not found
+            throw new ArgumentException($"Movie with ID {id} not found.");
+        }
+
+        QuestPDF.Settings.License = LicenseType.Community;
+
+        var document = Document.Create(container =>
+        {
+            container.Page(page =>
+            {
+                page.Size(PageSizes.A1);
+                page.Margin(2, Unit.Centimetre);
+                page.PageColor(Colors.White);
+                page.DefaultTextStyle(x => x.FontSize(14));
+
+                page.Header()
+                    .Text("Movie Details")
+                    .SemiBold()
+                    .FontSize(20)
+                    .FontColor(Colors.Black);
+
+                // Add movie details
+                page.Content().Column(stack =>
+                {
+                    stack.Item().Text($"Title: {movie.Title}");
+                    stack.Item().Text($"Year: {movie.Year}");
+                    stack.Item().Text($"Director: {movie.Director}");
+                    stack.Item().Text($"Genre: {movie.Genre}");
+                    stack.Item().Text($"Plot: {movie.Plot}");
+                });
+            });
+        });
+
+        var pdf = document.GeneratePdf();
+        var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "pdfs");
+        Directory.CreateDirectory(directoryPath); // Create the directory if it doesn't exist
+        var filePath = Path.Combine(directoryPath, $"{movie.Title}.pdf");
+        await File.WriteAllBytesAsync(filePath, pdf, cancellationToken);
+
+        return filePath;
+    }
 }

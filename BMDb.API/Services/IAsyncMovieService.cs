@@ -94,4 +94,12 @@ public interface IAsyncMovieService
     /// </summary>
     /// <returns></returns>
     Task<int> GetTotalCountAsync();
+    
+    /// <summary>
+    /// This method is used to download a pdf.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<string> DownloadPdfAsync(Guid id, CancellationToken cancellationToken = default);
 }

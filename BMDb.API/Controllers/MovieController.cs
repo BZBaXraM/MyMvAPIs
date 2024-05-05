@@ -77,7 +77,8 @@ public class MovieController : ControllerBase
     /// <returns></returns>
     [HttpPost]
     [ValidateModel]
-    public async Task<IActionResult> AddMovieAsync([FromBody] AddMovieRequestDto requestDto, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> AddMovieAsync([FromBody] AddMovieRequestDto requestDto,
+        CancellationToken cancellationToken = default)
     {
         var movieModel = _mapper.Map<Movie>(requestDto);
         if (movieModel is null)
@@ -174,6 +175,7 @@ public class MovieController : ControllerBase
     public async Task<IActionResult> GetMovieByImdbIdAsync(string imdb, CancellationToken cancellationToken = default)
         => Ok(await _service.GetMovieByImdbIdAsync(imdb, cancellationToken));
 
+
     /// <summary>
     /// This method is used to get the total count of movies.
     /// </summary>
@@ -181,4 +183,20 @@ public class MovieController : ControllerBase
     [HttpGet("count")]
     public async Task<IActionResult> GetTotalCountAsync()
         => Ok(await _service.GetTotalCountAsync());
+
+    /// <summary>
+    /// This method is used to get a pdf file.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("pdf")]
+    public async Task<IActionResult> GetPdfAsync(Guid id)
+    {
+        var filePath = await _service.DownloadPdfAsync(id);
+        var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+        return new FileContentResult(fileBytes, "application/pdf")
+        {
+            FileDownloadName = Path.GetFileName(filePath)
+        };
+    }
 }

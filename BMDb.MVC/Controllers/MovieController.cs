@@ -2,6 +2,10 @@ using BMDb.MVC.Models;
 using BMDb.MVC.Services;
 using Microsoft.AspNetCore.Mvc;
 
+// using QuestPDF.Fluent;
+// using QuestPDF.Helpers;
+// using QuestPDF.Infrastructure;
+
 namespace BMDb.MVC.Controllers;
 
 public class MovieController : Controller
@@ -44,7 +48,6 @@ public class MovieController : Controller
     public async Task<IActionResult> Details(Guid id)
     {
         var movie = await _service.GetMoviesDetailsAsync(id);
-
         return View(movie);
     }
 }
